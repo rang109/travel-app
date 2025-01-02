@@ -1,5 +1,5 @@
 # Travel App 
-[Description](#app-description) ● [Features](#features) ● [Setup](#set-up) ● [Contributing](#contributing) ● [Acknowledgement](#acknowledgement)
+[Description](#description) ● [Features](#features) ● [Setup](#setup) ● [Contributing](#contributing) ● [Acknowledgement](#acknowledgement)
 
 ## 💡Description
 
@@ -22,16 +22,19 @@
   git checkout -b feature-name
   ```
   3. ❗️Commit all your changes:
+     - make sure to comment necessary changes para dali ang pag track sa nabuhat
   ```bash
   git add .
   git commit -m "Add comment on changes being made"
   ```
-  4. Push to the specific branch you have created:
+  4. Push your changes to the specific branch:
   ```bash
   git push origin feature-name
   ```
   5. Create a Pull Request (PR):
      - After pushing, go to GitHub and create a pull request from your feature branch to the main branch (main or develop, based on your workflow).
      - Ensure your PR title and description are clear about the changes.
+    
+  [back to top](#travel-app)
   
 </details>
