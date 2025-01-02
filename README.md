@@ -2,14 +2,15 @@
 [Description](#description) ● [Features](#features) ● [Setup](#setup) ● [Contributing](#contributing) ● [Acknowledgement](#acknowledgement)
 
 ## 💡Description
+<!-- to add pa -->
 
 ## ✨️Features
+<!-- to be finalized -->
 
 ## 🤝Contributing
-
 **How to contribute:**
 <details>
-  <summary>For team members</summary>
+  <summary><strong style="font-size: 50px;">For Team Members:</strong></summary>
 
   1. Clone the repository.
   ```bash
@@ -32,7 +33,7 @@
   git push origin feature-name
   ```
   5. Create a Pull Request (PR):
-     - After pushing, go to GitHub and create a pull request from your feature branch to the main branch (main or develop, based on your workflow).
+     - After pushing, go to GitHub and create a pull request from your feature branch to the main branch.
      - Ensure your PR title and description are clear about the changes.
     
   [back to top](#travel-app)
