@@ -28,7 +28,7 @@
   git checkout -b feature-name
   ```
   3. ❗️Commit all your changes:
-     - make sure to comment necessary changes para dali ang pag track sa nabuhat
+     - make sure to commit and add a comment of the changes para dali ang pag track sa nabuhat
   ```bash
   git add .
   git commit -m "Add comment on changes being made"
