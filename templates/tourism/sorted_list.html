@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorted Tourist Spots</title>
+</head>
+<body>
+    <h1>Tourist Spots Sorted by Reviews</h1>
+    <ul>
+        {% for spot in spots %}
+        <li>{{ spot.place_name }} - {{ spot.reviews }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
