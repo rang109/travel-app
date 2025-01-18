@@ -16,7 +16,17 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final Map<String, String> signupFormValues = {};
+  static const List<String> signupFormFields = [
+    'firstName',
+    'lastName',
+    'emailAddress',
+    'username',
+    'password',
+    'confirmPassword',
+  ];
+  
+  final Map<String, String> signupFormValues = 
+    <String, String>{for (var key in signupFormFields) key: ''};
 
   void handleSignup() {
     debugPrint('First Name: ${signupFormValues['firstName']}');
@@ -42,7 +52,7 @@ class _SignupPageState extends State<SignupPage> {
                     child: AuthTextField(
                       labelText: 'Enter First Name',
                       onChanged: (value) => 
-                        signupFormValues['firstName'] = value
+                        setState(() => signupFormValues['firstName'] = value)
                     ),
                   ),
                   SizedBox(width: 12.0),
@@ -50,7 +60,7 @@ class _SignupPageState extends State<SignupPage> {
                     child: AuthTextField(
                       labelText: 'Enter Last Name',
                       onChanged: (value) => 
-                        signupFormValues['lastName'] = value
+                        setState(() => signupFormValues['lastName'] = value)
                     ),
                   ),
                 ],
@@ -59,27 +69,27 @@ class _SignupPageState extends State<SignupPage> {
               AuthTextField(
                 labelText: 'Enter Email Address',
                 onChanged: (value) => 
-                  signupFormValues['emailAddress'] = value
+                  setState(() => signupFormValues['emailAddress'] = value)
               ),
               SizedBox(height: 12.0),
               AuthTextField(
                 labelText: 'Enter Username',
                 onChanged: (value) => 
-                  signupFormValues['username'] = value
+                  setState(() => signupFormValues['username'] = value)
               ),
               SizedBox(height: 12.0),
               AuthTextField(
                 labelText: 'Enter Password',
                 isProtected: true,
                 onChanged: (value) => 
-                  signupFormValues['password'] = value
+                  setState(() => signupFormValues['password'] = value)
               ),
               SizedBox(height: 12.0),
               AuthTextField(
                 labelText: 'Confirm Password',
                 isProtected: true,
                 onChanged: (value) => 
-                  signupFormValues['confirmPassword'] = value
+                  setState(() => signupFormValues['confirmPassword'] = value)
               ),
               SizedBox(height: 18.0),
               SizedBox(
@@ -87,6 +97,11 @@ class _SignupPageState extends State<SignupPage> {
                 child: BoxButton(
                   onPressed: handleSignup,
                   buttonLabel: 'Signup',
+                  disabled: (
+                    signupFormFields.any(
+                      (key) => signupFormValues[key] == ''
+                    )
+                  ),
                 ),
               ),
               SizedBox(height: 10.0),
