@@ -16,8 +16,18 @@ class VerifyEmailPage extends StatefulWidget {
 }
 
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
+  String? otp;
+  
   String censoredEmail = 'he***@gmail.com';
   String timeLeft = '00:00';
+
+  void handleVerifyEmail() {
+    debugPrint('OTP: $otp');
+  }
+
+  void handleResendEmail() {
+    debugPrint('Resend email');
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -43,7 +53,10 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
             Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 24.0),
-                child: OtpInputField(),
+                child: OtpInputField(
+                  onChanged: (value) =>
+                    setState(() => otp = value)
+                ),
               ),
             ),
             Padding(
@@ -54,15 +67,16 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     SizedBox(
                       width: double.infinity,
                       child: BoxButton(
-                        onPressed: () {},
+                        onPressed: handleVerifyEmail,
                         buttonLabel: 'Submit',
+                        disabled: !(otp?.length == 6),
                       ),
                     ),
                     SizedBox(height: 2.0),
                     SizedBox(
                       width: double.infinity,
                       child: BoxButton(
-                        onPressed: () {},
+                        onPressed: handleResendEmail,
                         buttonLabel: 'Resend' ' in $timeLeft',
                         outlined: true,
                       ),

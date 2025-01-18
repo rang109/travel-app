@@ -6,7 +6,12 @@ import 'package:client/config/colors.dart';
 import 'package:client/config/text_styles.dart';
 
 class OtpInputField extends StatefulWidget {
-  const OtpInputField({super.key});
+  final Function(String)? onChanged;
+  
+  const OtpInputField({
+    super.key,
+    this.onChanged,
+  });
 
   @override
   State<OtpInputField> createState() => _OtpInputFieldState();
@@ -18,6 +23,7 @@ class _OtpInputFieldState extends State<OtpInputField> {
     return Pinput(
       length: 6,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      onChanged: widget.onChanged,
       defaultPinTheme: PinTheme(
         width: 46.0,
         height: 54.0,
