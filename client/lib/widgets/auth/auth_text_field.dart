@@ -51,11 +51,6 @@ class _AuthTextFieldState extends State<AuthTextField> {
     super.dispose();
   }
 
-  // get textfield value
-  String getValue() {
-    return _controller.text;
-  }
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
