@@ -8,10 +8,14 @@ import 'package:client/config/text_styles.dart';
 
 class OtpInputField extends StatefulWidget {
   final Function(String)? onChanged;
+  final bool? error;
+  final String? errorMessage;
   
   const OtpInputField({
     super.key,
     this.onChanged,
+    this.error,
+    this.errorMessage,
   });
 
   @override
@@ -19,29 +23,61 @@ class OtpInputField extends StatefulWidget {
 }
 
 class _OtpInputFieldState extends State<OtpInputField> {
+  final TextEditingController _controller = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
-    return Pinput(
-      length: 6,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      onChanged: widget.onChanged,
-      keyboardType: TextInputType.text,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
-      ],
-      defaultPinTheme: PinTheme(
-        width: 46.0,
-        height: 54.0,
-        textStyle: AppTextStyles.LABEL_2_1.copyWith(
-          color: AppColors.TOMATO,
+    return Column(
+      children: <Widget>[
+        Pinput(
+          length: 6,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          onChanged: widget.onChanged,
+          keyboardType: TextInputType.text,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+          ],
+          controller: _controller,
+          defaultPinTheme: (!(widget.error ?? false)) ?
+            PinTheme(
+              width: 46.0,
+              height: 54.0,
+              textStyle: AppTextStyles.LABEL_2_1.copyWith(
+                color: AppColors.TOMATO,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: AppColors.TOMATO,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ) :
+            PinTheme(
+              width: 46.0,
+              height: 54.0,
+              textStyle: AppTextStyles.LABEL_2_1.copyWith(
+                color: AppColors.TOMATO,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: AppColors.SCARLET,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
         ),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.TOMATO,
+        if (widget.error ?? false)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
+            child: Text(
+              widget.errorMessage ?? 'An unexpected error has occurred',
+              style: AppTextStyles.LABEL_2.copyWith(
+                color: AppColors.SCARLET,
+              ),
+            ),
           ),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
+      ],
     );
   }
 }
