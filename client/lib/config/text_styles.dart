@@ -4,13 +4,13 @@ class AppTextStyles {
   static final TextStyle HEADING_1 = TextStyle(
     fontFamily: 'Urbanist',
     fontWeight: FontWeight.bold,
-    fontSize: 50.0,
+    fontSize: 45.0,
   );
 
   static final TextStyle HEADING_2 = TextStyle(
     fontFamily: 'Urbanist',
     fontWeight: FontWeight.bold,
-    fontSize: 35.0,
+    fontSize: 32.0,
   );
 
   static final TextStyle LABEL_1 = TextStyle(
