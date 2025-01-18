@@ -16,6 +16,17 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final Map<String, String> signupFormValues = {};
+
+  void handleSignup() {
+    debugPrint('First Name: ${signupFormValues['firstName']}');
+    debugPrint('Last Name: ${signupFormValues['lastName']}');
+    debugPrint('Email Address: ${signupFormValues['emailAddress']}');
+    debugPrint('Username: ${signupFormValues['username']}');
+    debugPrint('Password: ${signupFormValues['password']}');
+    debugPrint('Confirm Password: ${signupFormValues['confirmPassword']}');
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,12 +41,16 @@ class _SignupPageState extends State<SignupPage> {
                   Expanded(
                     child: AuthTextField(
                       labelText: 'Enter First Name',
+                      onChanged: (value) => 
+                        signupFormValues['firstName'] = value
                     ),
                   ),
                   SizedBox(width: 12.0),
                   Expanded(
                     child: AuthTextField(
                       labelText: 'Enter Last Name',
+                      onChanged: (value) => 
+                        signupFormValues['lastName'] = value
                     ),
                   ),
                 ],
@@ -43,28 +58,35 @@ class _SignupPageState extends State<SignupPage> {
               SizedBox(height: 12.0),
               AuthTextField(
                 labelText: 'Enter Email Address',
+                onChanged: (value) => 
+                  signupFormValues['emailAddress'] = value
               ),
               SizedBox(height: 12.0),
               AuthTextField(
                 labelText: 'Enter Username',
+                onChanged: (value) => 
+                  signupFormValues['username'] = value
               ),
               SizedBox(height: 12.0),
               AuthTextField(
                 labelText: 'Enter Password',
                 isProtected: true,
+                onChanged: (value) => 
+                  signupFormValues['password'] = value
               ),
               SizedBox(height: 12.0),
               AuthTextField(
                 labelText: 'Confirm Password',
                 isProtected: true,
+                onChanged: (value) => 
+                  signupFormValues['confirmPassword'] = value
               ),
               SizedBox(height: 18.0),
               SizedBox(
                 width: double.infinity,
                 child: BoxButton(
-                  onPressed: () {},
+                  onPressed: handleSignup,
                   buttonLabel: 'Signup',
-                  disabled: true,
                 ),
               ),
               SizedBox(height: 10.0),

@@ -7,11 +7,13 @@ import 'package:client/config/text_styles.dart';
 class AuthTextField extends StatefulWidget {
   final String? labelText;
   final bool? isProtected;
+  final Function(String)? onChanged;
 
   const AuthTextField({
     super.key,
     this.labelText,
     this.isProtected,
+    this.onChanged,
   });
 
   @override
@@ -46,6 +48,11 @@ class _AuthTextFieldState extends State<AuthTextField> {
     super.dispose();
   }
 
+  // get textfield value
+  String getValue() {
+    return _controller.text;
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -55,6 +62,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
       style: AppTextStyles.LABEL_2.copyWith(
         color: AppColors.TOMATO,
       ),
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         isDense: true,
         contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
