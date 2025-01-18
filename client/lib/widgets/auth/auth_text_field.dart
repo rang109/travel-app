@@ -8,12 +8,14 @@ class AuthTextField extends StatefulWidget {
   final String? labelText;
   final bool? isProtected;
   final Function(String)? onChanged;
+  final String? Function(String?)? validator;
 
   const AuthTextField({
     super.key,
     this.labelText,
     this.isProtected,
     this.onChanged,
+    this.validator,
   });
 
   @override
@@ -23,6 +25,7 @@ class AuthTextField extends StatefulWidget {
 class _AuthTextFieldState extends State<AuthTextField> {
   final TextEditingController _controller = TextEditingController();
   bool _isVisible = false;
+  bool _error = false;
 
   @override
   void initState() {
@@ -55,7 +58,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       obscureText: _isVisible,
       controller: _controller,
       cursorColor: AppColors.TOMATO,
@@ -80,9 +83,32 @@ class _AuthTextFieldState extends State<AuthTextField> {
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.SCARLET,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.SCARLET,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        errorStyle: AppTextStyles.LABEL_3.copyWith(
+          color: AppColors.SCARLET,
+        ),
+        errorMaxLines: 2,
         labelText: widget.labelText ?? 'Enter text',
         labelStyle: AppTextStyles.LABEL_2.copyWith(
           color: AppColors.TOMATO,
+        ),
+        floatingLabelStyle: TextStyle(
+          color: (_error) ?
+            AppColors.SCARLET :
+            AppColors.TOMATO,
         ),
         suffixIcon: (widget.isProtected ?? false) ? IconButton(
           icon: Icon(_isVisible ? 
@@ -97,6 +123,13 @@ class _AuthTextFieldState extends State<AuthTextField> {
           },
         ) : null,
       ),
+      validator: (value) {
+        String? errorMessage = widget.validator?.call(value);
+        setState(() => 
+          _error = errorMessage != null
+        );
+        return errorMessage;
+      },
     );
   }
 }

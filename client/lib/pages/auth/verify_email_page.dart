@@ -38,7 +38,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     if (widget.emailAddress == '') return;
 
     List<String>? parsedEmail = widget.emailAddress.split('@');
-    censoredEmail = widget.emailAddress.replaceRange(2, parsedEmail[0].length, '*' * 4);
+    if (parsedEmail[0].length <= 2) {
+      censoredEmail = widget.emailAddress.replaceRange(0, parsedEmail[0].length, '*' * 4);
+    } else {
+      censoredEmail = widget.emailAddress.replaceRange(2, parsedEmail[0].length, '*' * 4);
+    }
   }
 
   @override

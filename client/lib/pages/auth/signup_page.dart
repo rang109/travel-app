@@ -8,8 +8,7 @@ import 'package:client/config/text_styles.dart';
 import 'package:client/pages/auth/login_page.dart';
 import 'package:client/pages/auth/verify_email_page.dart';
 
-import 'package:client/widgets/auth/auth_text_field.dart';
-import 'package:client/widgets/general/box_button.dart';
+import 'package:client/widgets/auth/signup_form.dart';
 
 // Signup Page Widget
 class SignupPage extends StatefulWidget {
@@ -33,12 +32,7 @@ class _SignupPageState extends State<SignupPage> {
     <String, String>{for (var key in signupFormFields) key: ''};
 
   void handleSignup() {
-    debugPrint('First Name: ${signupFormValues['firstName']}');
-    debugPrint('Last Name: ${signupFormValues['lastName']}');
-    debugPrint('Email Address: ${signupFormValues['emailAddress']}');
-    debugPrint('Username: ${signupFormValues['username']}');
-    debugPrint('Password: ${signupFormValues['password']}');
-    debugPrint('Confirm Password: ${signupFormValues['confirmPassword']}');
+    debugPrint('$signupFormValues');
 
     // redirect to VerifyEmailPage
     Navigator.of(context).push(
@@ -74,63 +68,12 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: AuthTextField(
-                            labelText: 'Enter First Name',
-                            onChanged: (value) => 
-                              setState(() => signupFormValues['firstName'] = value)
-                          ),
-                        ),
-                        SizedBox(width: 12.0),
-                        Expanded(
-                          child: AuthTextField(
-                            labelText: 'Enter Last Name',
-                            onChanged: (value) => 
-                              setState(() => signupFormValues['lastName'] = value)
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 12.0),
-                    AuthTextField(
-                      labelText: 'Enter Email Address',
-                      onChanged: (value) => 
-                        setState(() => signupFormValues['emailAddress'] = value)
-                    ),
-                    SizedBox(height: 12.0),
-                    AuthTextField(
-                      labelText: 'Enter Username',
-                      onChanged: (value) => 
-                        setState(() => signupFormValues['username'] = value)
-                    ),
-                    SizedBox(height: 12.0),
-                    AuthTextField(
-                      labelText: 'Enter Password',
-                      isProtected: true,
-                      onChanged: (value) => 
-                        setState(() => signupFormValues['password'] = value)
-                    ),
-                    SizedBox(height: 12.0),
-                    AuthTextField(
-                      labelText: 'Confirm Password',
-                      isProtected: true,
-                      onChanged: (value) => 
-                        setState(() => signupFormValues['confirmPassword'] = value)
-                    ),
-                    SizedBox(height: 18.0),
-                    SizedBox(
-                      width: double.infinity,
-                      child: BoxButton(
-                        onPressed: handleSignup,
-                        buttonLabel: 'Signup',
-                        disabled: (
-                          signupFormFields.any(
-                            (key) => signupFormValues[key] == ''
-                          )
-                        ),
-                      ),
+                    SignupForm(
+                      onSubmit: handleSignup,
+                      formFields: signupFormFields,
+                      formValues: signupFormValues,
+                      onFieldChanged: (key, value) =>
+                        setState(() => signupFormValues[key] = value),
                     ),
                     SizedBox(height: 10.0),
                     RichText(
