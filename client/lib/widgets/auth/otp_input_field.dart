@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:pinput/pinput.dart';
 
@@ -24,6 +25,10 @@ class _OtpInputFieldState extends State<OtpInputField> {
       length: 6,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       onChanged: widget.onChanged,
+      keyboardType: TextInputType.text,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+      ],
       defaultPinTheme: PinTheme(
         width: 46.0,
         height: 54.0,
