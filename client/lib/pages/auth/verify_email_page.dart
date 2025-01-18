@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:client/config/colors.dart';
@@ -9,7 +11,12 @@ import 'package:client/widgets/auth/otp_input_field.dart';
 // Verify Email Page Widget
 
 class VerifyEmailPage extends StatefulWidget {
-  const VerifyEmailPage({super.key});
+  final String emailAddress;
+  
+  const VerifyEmailPage({
+    super.key,
+    required this.emailAddress,
+  });
 
   @override
   State<VerifyEmailPage> createState() => _VerifyEmailPageState();
@@ -17,9 +24,28 @@ class VerifyEmailPage extends StatefulWidget {
 
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
   String? otp;
-  
-  String censoredEmail = 'he***@gmail.com';
+
+  String? censoredEmail;
+
   String timeLeft = '00:00';
+  bool isTimerActive = false;
+  Timer? resendTimer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.emailAddress == '') return;
+
+    List<String>? parsedEmail = widget.emailAddress.split('@');
+    censoredEmail = widget.emailAddress.replaceRange(2, parsedEmail[0].length, '*' * 4);
+  }
+
+  @override
+  void dispose() {
+    resendTimer?.cancel();
+    super.dispose();
+  }
 
   void handleVerifyEmail() {
     debugPrint('OTP: $otp');
@@ -27,6 +53,32 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   void handleResendEmail() {
     debugPrint('Resend email');
+    startResendTimer();
+  }
+
+  void startResendTimer() {
+    setState(() {
+      isTimerActive = true;
+      timeLeft = '02:00';
+    });
+
+    Duration timerDuration = Duration(minutes: 2);
+    resendTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      final remainingSeconds = timerDuration.inSeconds - timer.tick;
+      if (remainingSeconds <= 0) {
+        timer.cancel();
+        setState(() {
+          isTimerActive = false;
+          timeLeft = '00:00';
+        });
+      } else {
+        final minutes = (remainingSeconds ~/ 60).toString().padLeft(2, '0');
+        final seconds = (remainingSeconds % 60).toString().padLeft(2, '0');
+        setState(() {
+          timeLeft = '$minutes:$seconds';
+        });
+      }
+    });
   }
   
   @override
@@ -77,8 +129,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                       width: double.infinity,
                       child: BoxButton(
                         onPressed: handleResendEmail,
-                        buttonLabel: 'Resend' ' in $timeLeft',
+                        buttonLabel: isTimerActive ?
+                          'Resend in $timeLeft' :
+                          'Resend',
                         outlined: true,
+                        disabled: isTimerActive,
                       ),
                     ),
                   ],
