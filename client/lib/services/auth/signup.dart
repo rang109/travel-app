@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 // temp
 void signup(Map<String, String> userDetails) async {
   final response = await http.post(
-    Uri.parse(''),
+    Uri.parse(''), // api endpoint for signup
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
