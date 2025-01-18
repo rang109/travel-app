@@ -11,6 +11,7 @@ import 'package:client/pages/auth/verify_email_page.dart';
 import 'package:client/widgets/auth/signup_form.dart';
 
 import 'package:client/services/auth/signup.dart';
+import 'package:client/services/auth/send_otp.dart';
 
 // Signup Page Widget
 class SignupPage extends StatefulWidget {
@@ -36,6 +37,7 @@ class _SignupPageState extends State<SignupPage> {
   void handleSignup() {
     debugPrint('$signupFormValues');
     // signup(signupFormValues); // uncomment once ready
+    // sendOtp(signupFormValues['emailAddress'] ?? ''); // uncomment once ready
 
     // redirect to VerifyEmailPage
     Navigator.of(context).push(

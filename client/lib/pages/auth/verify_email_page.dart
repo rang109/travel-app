@@ -9,6 +9,7 @@ import 'package:client/widgets/generic/box_button.dart';
 import 'package:client/widgets/auth/otp_input_field.dart';
 
 import 'package:client/services/auth/verify_email.dart';
+import 'package:client/services/auth/send_otp.dart';
 
 // Verify Email Page Widget
 
@@ -75,6 +76,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   void handleResendEmail() {
     debugPrint('Resend email');
+    // sendOtp(widget.emailAddress); // uncomment when ready
     startResendTimer();
   }
 
