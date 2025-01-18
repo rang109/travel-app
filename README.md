@@ -59,9 +59,11 @@
      - `home` for Home
      - `locations` for Locations
      - `itinerary` for Itinerary
-  3. Colors and font classes are already defined for you in `colors.dart` and `text_styles.dart` respectively under the `config` folder. Please refer
+  3. For widgets, if you think a widget can be generally used on any page (doesn't matter if it's an auth page, home page, etc.),
+     please store them at the `generic` folder
+  4. Colors and font classes are already defined for you in `colors.dart` and `text_styles.dart` respectively under the `config` folder. Please refer
      to these custom colors and font styles to ensure consistency with the Figma design
-  4. For more inquiries, please relay those to the #frontend Discord channel 
+  5. For more inquiries, please relay those to the #frontend Discord channel 
     
   [back to top](#travel-app)
   
