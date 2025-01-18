@@ -10,6 +10,8 @@ import 'package:client/pages/auth/verify_email_page.dart';
 
 import 'package:client/widgets/auth/signup_form.dart';
 
+import 'package:client/services/auth/signup.dart';
+
 // Signup Page Widget
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -33,6 +35,7 @@ class _SignupPageState extends State<SignupPage> {
 
   void handleSignup() {
     debugPrint('$signupFormValues');
+    // signup(signupFormValues); // uncomment once ready
 
     // redirect to VerifyEmailPage
     Navigator.of(context).push(
