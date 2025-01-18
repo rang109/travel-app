@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:client/config/colors.dart';
 import 'package:client/config/text_styles.dart';
 
-import 'package:client/widgets/general/box_button.dart';
+import 'package:client/widgets/generic/box_button.dart';
 import 'package:client/widgets/auth/otp_input_field.dart';
 
 // Verify Email Page Widget
