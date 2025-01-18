@@ -66,6 +66,17 @@ build/
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 
+# Windows related
+**/windows/flutter/generated_plugin_registrant.cc
+**/windows/flutter/generated_plugins.cmake
+
+# MacOS related
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Linux related
+**/linux/flutter/generated_plugin_registrant.cc
+**/linux/flutter/generated_plugins.cmake
+
 
 ### https://raw.github.com/github/gitignore//Android.gitignore
 
