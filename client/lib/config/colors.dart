@@ -10,6 +10,7 @@ class AppColors {
   static const Color TOMATO = Color(0xFFF96153);
   static const Color WHITE = Color(0xFFFEFDFB);
   static const Color KETCHUP = Color(0xFFF6835F);
+  static const Color SCARLET = Color(0xFFE41833);
   static const Color BLACK = Color(0xFF000000);
 }
 

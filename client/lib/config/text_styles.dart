@@ -34,40 +34,40 @@ class AppTextStyles {
   static final TextStyle LABEL_2_1 = TextStyle(
     fontFamily: 'Urbanist',
     fontWeight: FontWeight.bold,
-    fontSize: 16.0,
+    fontSize: 14.0,
   );
 
   static final TextStyle LABEL_2_2 = TextStyle(
     fontFamily: 'Urbanist',
     fontWeight: FontWeight.bold,
-    fontSize: 13.0,
+    fontSize: 11.0,
   );
   
   static final TextStyle LABEL_3 = TextStyle(
     fontFamily: 'Urbanist',
     fontWeight: FontWeight.w500,
-    fontSize: 12.0,
+    fontSize: 10.0,
   );
 
   static final TextStyle LABEL_4 = TextStyle(
     fontFamily: 'Urbanist',
     fontWeight: FontWeight.w300,
-    fontSize: 11.0,
+    fontSize: 9.0,
   );
 
   static final TextStyle SUBTEXT_1 = TextStyle(
     fontFamily: 'Urbanist',
-    fontSize: 26.0,
+    fontSize: 22.0,
   );
 
   static final TextStyle SUBTEXT_2 = TextStyle(
     fontFamily: 'Arapey',
     fontStyle: FontStyle.italic,
-    fontSize: 18.0,
+    fontSize: 16.0,
   );
 
   static final TextStyle SUBTEXT_3 = TextStyle(
     fontFamily: 'Urbanist',
-    fontSize: 18.0,
+    fontSize: 16.0,
   );
 }
