@@ -6,6 +6,7 @@ import 'package:client/config/text_styles.dart';
 // AUTH TEXT FIELD WIDGET
 class AuthTextField extends StatefulWidget {
   final String? labelText;
+  final int? maxLength;
   final bool? isProtected;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
@@ -14,6 +15,7 @@ class AuthTextField extends StatefulWidget {
   const AuthTextField({
     super.key,
     this.labelText,
+    this.maxLength,
     this.isProtected,
     this.onChanged,
     this.validator,
@@ -57,6 +59,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: _isVisible,
+      maxLength: widget.maxLength,
       controller: _controller,
       cursorColor: AppColors.tomato,
       style: AppTextStyles.LABEL_2.copyWith(
