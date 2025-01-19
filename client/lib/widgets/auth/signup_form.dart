@@ -87,6 +87,7 @@ class _SignupFormState extends State<SignupForm> {
                   labelText: 'Enter First Name',
                   onChanged: (value) => 
                     widget.onFieldChanged('firstName', value),
+                  keyboardType: TextInputType.name,
                 ),
               ),
               SizedBox(width: 12.0),
@@ -95,6 +96,7 @@ class _SignupFormState extends State<SignupForm> {
                   labelText: 'Enter Last Name',
                   onChanged: (value) => 
                     widget.onFieldChanged('lastName', value),
+                  keyboardType: TextInputType.name,
                 ),
               ),
             ],
@@ -105,6 +107,7 @@ class _SignupFormState extends State<SignupForm> {
             onChanged: (value) => 
               widget.onFieldChanged('emailAddress', value),
             validator: emailAddressValidator,
+            keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: 12.0),
           AuthTextField(
@@ -119,6 +122,7 @@ class _SignupFormState extends State<SignupForm> {
             onChanged: (value) => 
               widget.onFieldChanged('password', value),
             validator: passwordValidator,
+            keyboardType: TextInputType.visiblePassword,
           ),
           SizedBox(height: 12.0),
           AuthTextField(
@@ -127,6 +131,7 @@ class _SignupFormState extends State<SignupForm> {
             onChanged: (value) => 
               widget.onFieldChanged('confirmPassword', value),
             validator: confirmPasswordValidator,
+            keyboardType: TextInputType.visiblePassword
           ),
           // SUBMIT BUTTON
           SizedBox(height: 18.0),

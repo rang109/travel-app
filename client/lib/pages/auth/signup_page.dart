@@ -83,51 +83,46 @@ class _SignupPageState extends State<SignupPage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Stack(
-          children: <Widget>[
-            Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SignupForm(
-                      onSubmit: handleSignup,
-                      formFields: signupFormFields,
-                      formValues: signupFormValues,
-                      onFieldChanged: (key, value) =>
-                        setState(() => signupFormValues[key] = value),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SignupForm(
+                  onSubmit: handleSignup,
+                  formFields: signupFormFields,
+                  formValues: signupFormValues,
+                  onFieldChanged: (key, value) =>
+                    setState(() => signupFormValues[key] = value),
+                ),
+                SizedBox(height: 10.0),
+                RichText(
+                  text: TextSpan(
+                    style: AppTextStyles.LABEL_2.copyWith(
+                      color: AppColors.TOMATO,
                     ),
-                    SizedBox(height: 10.0),
-                    RichText(
-                      text: TextSpan(
-                        style: AppTextStyles.LABEL_2.copyWith(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Already have an account?  '
+                      ),
+                      TextSpan(
+                        style: AppTextStyles.LABEL_2_1.copyWith(
                           color: AppColors.TOMATO,
                         ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Already have an account?  '
-                          ),
-                          TextSpan(
-                            style: AppTextStyles.LABEL_2_1.copyWith(
-                              color: AppColors.TOMATO,
-                            ),
-                            text: 'Log in',
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                debugPrint('Navigate to Login Page');
-                                handleToLoginPage();
-                              }
-                          ),
-                        ],
+                        text: 'Log in',
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            debugPrint('Navigate to Login Page');
+                            handleToLoginPage();
+                          }
                       ),
-                    ),
-                    SizedBox(height: 100.0),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

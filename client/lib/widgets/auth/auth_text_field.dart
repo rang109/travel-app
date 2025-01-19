@@ -9,6 +9,7 @@ class AuthTextField extends StatefulWidget {
   final bool? isProtected;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
 
   const AuthTextField({
     super.key,
@@ -16,6 +17,7 @@ class AuthTextField extends StatefulWidget {
     this.isProtected,
     this.onChanged,
     this.validator,
+    this.keyboardType,
   });
 
   @override
@@ -60,6 +62,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
       style: AppTextStyles.LABEL_2.copyWith(
         color: AppColors.TOMATO,
       ),
+      keyboardType: widget.keyboardType,
       onChanged: widget.onChanged,
       decoration: InputDecoration(
         isDense: true,

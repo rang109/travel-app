@@ -33,7 +33,7 @@ class _OtpInputFieldState extends State<OtpInputField> {
           length: 6,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           onChanged: widget.onChanged,
-          keyboardType: TextInputType.text,
+          keyboardType: TextInputType.visiblePassword,
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
           ],
