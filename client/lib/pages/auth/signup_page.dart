@@ -34,6 +34,20 @@ class _SignupPageState extends State<SignupPage> {
   final Map<String, String> signupFormValues = 
     <String, String>{for (var key in signupFormFields) key: ''};
 
+  Image? bg;
+  
+  @override
+  void initState() {
+    super.initState();
+    bg = Image.asset('assets/img/auth-bg-1.png');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(bg!.image, context);
+  }
+
   void handleSignup() {
     debugPrint('$signupFormValues');
     // signup(signupFormValues); // uncomment once ready
@@ -57,15 +71,15 @@ class _SignupPageState extends State<SignupPage> {
       )
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.WHITE,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/png/auth-bg-1.png'),
+            image: bg!.image,
             fit: BoxFit.cover,
           ),
         ),
@@ -75,7 +89,7 @@ class _SignupPageState extends State<SignupPage> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 32.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SignupForm(
                       onSubmit: handleSignup,

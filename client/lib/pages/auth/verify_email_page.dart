@@ -37,6 +37,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   bool isTimerActive = false;
   Timer? resendTimer;
 
+  Image? bg;
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +51,14 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     } else {
       censoredEmail = widget.emailAddress.replaceRange(2, parsedEmail[0].length, '*' * 4);
     }
+
+    bg = Image.asset('assets/img/auth-bg-2.png');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(bg!.image, context);
   }
 
   @override
@@ -111,11 +121,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.WHITE,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/png/auth-bg-2.png'),
+            image: bg!.image,
             fit: BoxFit.cover,
           ),
         ),
