@@ -70,7 +70,6 @@ class _SignupFormState extends State<SignupForm> {
   void handleSubmit() {
     if (_formKey.currentState!.validate()) {
       widget.onSubmit();
-      return;
     }
   }
   
@@ -129,6 +128,7 @@ class _SignupFormState extends State<SignupForm> {
               widget.onFieldChanged('confirmPassword', value),
             validator: confirmPasswordValidator,
           ),
+          // SUBMIT BUTTON
           SizedBox(height: 18.0),
           SizedBox(
             width: double.infinity,

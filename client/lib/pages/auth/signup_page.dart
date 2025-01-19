@@ -61,17 +61,21 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.WHITE,
-      body: SafeArea(
-        top: false,
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/png/auth-bg-1.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Stack(
           children: <Widget>[
-            SvgPicture.asset('assets/svg/sky.svg'),
             Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 32.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     SignupForm(
                       onSubmit: handleSignup,
@@ -104,6 +108,7 @@ class _SignupPageState extends State<SignupPage> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 100.0),
                   ],
                 ),
               ),

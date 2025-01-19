@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:client/config/colors.dart';
 import 'package:client/config/text_styles.dart';
@@ -110,68 +111,81 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Verify email',
-                style: AppTextStyles.HEADING_2.copyWith(
-                  color: AppColors.TOMATO,
-                ),
-              ),
-              Text(
-                'We sent a code to $censoredEmail.',
-                style: AppTextStyles.LABEL_1.copyWith(
-                  color: AppColors.TOMATO,
-                ),
-              ),
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 24.0),
-                  child: OtpInputField(
-                    onChanged: (value) =>
-                      setState(() => otp = value),
-                    error: isIncorrectOTP,
-                    errorMessage: errorMessage,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        width: double.infinity,
-                        child: BoxButton(
-                          onPressed: handleVerifyEmail,
-                          buttonLabel: 'Submit',
-                          disabled: !(otp.length == 6),
-                        ),
-                      ),
-                      SizedBox(height: 2.0),
-                      SizedBox(
-                        width: double.infinity,
-                        child: BoxButton(
-                          onPressed: handleResendEmail,
-                          buttonLabel: isTimerActive ?
-                            'Resend in $timeLeft' :
-                            'Resend',
-                          outlined: true,
-                          disabled: isTimerActive,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/png/auth-bg-2.png'),
+            fit: BoxFit.cover,
           ),
+        ),
+        child: Stack(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Verify email',
+                      style: AppTextStyles.HEADING_2.copyWith(
+                        color: AppColors.TOMATO,
+                      ),
+                    ),
+                    Text(
+                      'We sent a code to $censoredEmail.',
+                      style: AppTextStyles.LABEL_1.copyWith(
+                        color: AppColors.TOMATO,
+                      ),
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24.0),
+                        child: OtpInputField(
+                          onChanged: (value) =>
+                            setState(() => otp = value),
+                          error: isIncorrectOTP,
+                          errorMessage: errorMessage,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Center(
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              width: double.infinity,
+                              child: BoxButton(
+                                onPressed: handleVerifyEmail,
+                                buttonLabel: 'Submit',
+                                disabled: !(otp.length == 6),
+                              ),
+                            ),
+                            SizedBox(height: 2.0),
+                            SizedBox(
+                              width: double.infinity,
+                              child: BoxButton(
+                                onPressed: handleResendEmail,
+                                buttonLabel: isTimerActive ?
+                                  'Resend in $timeLeft' :
+                                  'Resend',
+                                outlined: true,
+                                disabled: isTimerActive,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
