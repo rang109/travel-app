@@ -34,15 +34,15 @@ class _BoxButtonState extends State<BoxButton> {
             borderRadius: BorderRadius.circular(10.0),
             side: BorderSide(
               color: (widget.disabled ?? false) ?
-              AppColors.LIGHT_SALMON :
-              AppColors.TOMATO,
+              AppColors.lightSalmon :
+              AppColors.tomato,
             )
           ),
         ) :
         TextButton.styleFrom(
           backgroundColor: (widget.disabled ?? false) ?
-          AppColors.LIGHT_SALMON :
-          AppColors.TOMATO,
+          AppColors.lightSalmon :
+          AppColors.tomato,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -52,9 +52,9 @@ class _BoxButtonState extends State<BoxButton> {
           style: AppTextStyles.LABEL_1.copyWith(
             color: (widget.outlined ?? false) ?
             ((widget.disabled ?? false) ? 
-              AppColors.LIGHT_SALMON : 
-              AppColors.TOMATO) :
-            AppColors.WHITE,
+              AppColors.lightSalmon : 
+              AppColors.tomato) :
+            AppColors.white,
           ),
         ),
       );

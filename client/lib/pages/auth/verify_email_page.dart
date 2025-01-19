@@ -121,7 +121,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.WHITE,
+      backgroundColor: AppColors.white,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -142,13 +142,13 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     Text(
                       'Verify email',
                       style: AppTextStyles.HEADING_2.copyWith(
-                        color: AppColors.TOMATO,
+                        color: AppColors.tomato,
                       ),
                     ),
                     Text(
                       'We sent a code to $censoredEmail.',
                       style: AppTextStyles.LABEL_1.copyWith(
-                        color: AppColors.TOMATO,
+                        color: AppColors.tomato,
                       ),
                     ),
                     Center(

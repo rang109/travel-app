@@ -43,11 +43,11 @@ class _OtpInputFieldState extends State<OtpInputField> {
               width: 46.0,
               height: 54.0,
               textStyle: AppTextStyles.LABEL_2_1.copyWith(
-                color: AppColors.TOMATO,
+                color: AppColors.tomato,
               ),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: AppColors.TOMATO,
+                  color: AppColors.tomato,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -56,11 +56,11 @@ class _OtpInputFieldState extends State<OtpInputField> {
               width: 46.0,
               height: 54.0,
               textStyle: AppTextStyles.LABEL_2_1.copyWith(
-                color: AppColors.TOMATO,
+                color: AppColors.tomato,
               ),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: AppColors.SCARLET,
+                  color: AppColors.scarlet,
                   width: 2.0,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
@@ -73,7 +73,7 @@ class _OtpInputFieldState extends State<OtpInputField> {
             child: Text(
               widget.errorMessage ?? 'An unexpected error has occurred',
               style: AppTextStyles.LABEL_2.copyWith(
-                color: AppColors.SCARLET,
+                color: AppColors.scarlet,
               ),
             ),
           ),

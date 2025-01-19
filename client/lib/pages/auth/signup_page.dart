@@ -75,7 +75,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.WHITE,
+      backgroundColor: AppColors.white,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -100,7 +100,7 @@ class _SignupPageState extends State<SignupPage> {
                 RichText(
                   text: TextSpan(
                     style: AppTextStyles.LABEL_2.copyWith(
-                      color: AppColors.TOMATO,
+                      color: AppColors.tomato,
                     ),
                     children: <TextSpan>[
                       TextSpan(
@@ -108,7 +108,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       TextSpan(
                         style: AppTextStyles.LABEL_2_1.copyWith(
-                          color: AppColors.TOMATO,
+                          color: AppColors.tomato,
                         ),
                         text: 'Log in',
                         recognizer: TapGestureRecognizer()

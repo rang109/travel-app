@@ -58,9 +58,9 @@ class _AuthTextFieldState extends State<AuthTextField> {
     return TextFormField(
       obscureText: _isVisible,
       controller: _controller,
-      cursorColor: AppColors.TOMATO,
+      cursorColor: AppColors.tomato,
       style: AppTextStyles.LABEL_2.copyWith(
-        color: AppColors.TOMATO,
+        color: AppColors.tomato,
       ),
       keyboardType: widget.keyboardType,
       onChanged: widget.onChanged,
@@ -69,51 +69,51 @@ class _AuthTextFieldState extends State<AuthTextField> {
         contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.TOMATO,
+            color: AppColors.tomato,
             width: 1.0,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.TOMATO,
+            color: AppColors.tomato,
             width: 1.0,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.SCARLET,
+            color: AppColors.scarlet,
             width: 2.0,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.SCARLET,
+            color: AppColors.scarlet,
             width: 2.0,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
         errorStyle: AppTextStyles.LABEL_3.copyWith(
-          color: AppColors.SCARLET,
+          color: AppColors.scarlet,
         ),
         errorMaxLines: 2,
         labelText: widget.labelText ?? 'Enter text',
         labelStyle: AppTextStyles.LABEL_2.copyWith(
-          color: AppColors.TOMATO,
+          color: AppColors.tomato,
         ),
         floatingLabelStyle: TextStyle(
           color: (_error) ?
-            AppColors.SCARLET :
-            AppColors.TOMATO,
+            AppColors.scarlet :
+            AppColors.tomato,
         ),
         suffixIcon: (widget.isProtected ?? false) ? IconButton(
           icon: Icon(_isVisible ? 
             Icons.visibility : 
             Icons.visibility_off
           ),
-          color: AppColors.TOMATO,
+          color: AppColors.tomato,
           onPressed: () {
             setState(() {
               _isVisible = !_isVisible;
