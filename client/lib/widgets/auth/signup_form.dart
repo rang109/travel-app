@@ -34,7 +34,6 @@ class _SignupFormState extends State<SignupForm> {
   String? passwordValidator(String? password) {
     Map<PasswordValidation, dynamic> passwordValidationOptions = {
       PasswordValidation.minLength: 8,
-      PasswordValidation.maxLength: 64,
       PasswordValidation.disallowLetters: false,
       PasswordValidation.disallowNumbers: false,
       PasswordValidation.disallowSpecialChars: false,
@@ -44,8 +43,6 @@ class _SignupFormState extends State<SignupForm> {
       return 'Password is empty.';
     } else if (password.length < 8) {
       return 'Your password is too short.';
-    } else if (password.length > 64) {
-      return 'Your password exceeds the maximum allowed length.';
     } else if (!RegExp(r'[0-9!@#\$%^&*(),.?":{}|<>_\-+=/\[\]\\]').hasMatch(password)) {
       return 'Your password should contain at least one number and one special character.';
     } else if (!RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-+=/\[\]\\]').hasMatch(password)) {
