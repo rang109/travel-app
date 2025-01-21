@@ -1,0 +1,12 @@
+<h1>Add/Edit Event</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
+{% if event and event.pk %}
+    <a href="{% url 'event_detail' event.pk %}">Back to Event</a>
+{% else %}
+    <a href="{% url 'event_list' %}">Back to Event List</a>
+{% endif %}

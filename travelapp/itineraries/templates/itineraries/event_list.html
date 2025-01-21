@@ -1,0 +1,13 @@
+<h1>Events</h1>
+<a href="{% url 'event_create' %}">Create New Event</a>
+<ul>
+    {% for event in events %}
+        <li>
+            <a href="{% url 'event_detail' event.pk %}">{{ event.title }}</a>
+            ({{ event.from_date }} to {{ event.to_date }})
+            <a href="{% url 'event_update' event.pk %}">Edit</a>
+            <a href="{% url 'event_delete' event.pk %}">Delete</a>
+        </li>
+    {% endfor %}
+    <a href="{% url 'all_itineraries' %}">View All Itineraries</a>
+</ul>

@@ -1,0 +1,19 @@
+<h1>All Itineraries</h1>
+<ul>
+    {% for itinerary in itineraries %}
+        <li>
+            <strong>{{ itinerary.place.title }}</strong> (Event: {{ itinerary.event.title }})
+            <br>
+            From: {{ itinerary.from_date }} {{ itinerary.from_time }}
+            <br>
+            To: {{ itinerary.to_date }} {{ itinerary.to_time }}
+            <br>
+            <a href="{% url 'itinerary_details' itinerary.pk %}">View Details</a>
+            <a href="{% url 'itinerary_update' itinerary.pk %}">Edit</a>
+            <a href="{% url 'itinerary_delete' itinerary.pk %}">Delete</a>
+        </li>
+    {% empty %}
+        <li>No itineraries found.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'event_list' %}">Back to Event List</a>

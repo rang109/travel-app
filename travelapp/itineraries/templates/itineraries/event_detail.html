@@ -1,0 +1,22 @@
+<h1>{{ event.title }}</h1>
+<p>From: {{ event.from_date }}</p>
+<p>To: {{ event.to_date }}</p>
+
+<h2>Itineraries</h2>
+<a href="{% url 'itinerary_create' event.pk %}">Add Itinerary</a>
+<ul>
+    {% for itinerary in itineraries %}
+        <li>
+            <a href="{% url 'itinerary_details' itinerary.pk %}">
+                {{ itinerary.place.title }} from {{ itinerary.from_date }} {{ itinerary.from_time }} to {{ itinerary.to_date }} {{ itinerary.to_time }}
+            </a>
+            <a href="{% url 'itinerary_update' itinerary.pk %}">Edit</a>
+            <a href="{% url 'itinerary_delete' itinerary.pk %}">Delete</a>
+        </li>
+    {% empty %}
+        <li>No itineraries added yet.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'event_list' %}">Back to List</a>
+<a href="{% url 'event_update' event.pk %}">Edit Event</a>
+<a href="{% url 'event_delete' event.pk %}">Delete Event</a>

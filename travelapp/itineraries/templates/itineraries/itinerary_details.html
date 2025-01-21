@@ -1,0 +1,9 @@
+<h1>{{ itinerary.place.title }}</h1>
+<p>Location: {{ itinerary.place.location }}</p>
+<p>Description: {{ itinerary.place.description }}</p>
+<p>From: {{ itinerary.from_date }} - {{ itinerary.from_time }}</p>
+<p>To : {{ itinerary.to_date }} - {{ itinerary.to_time }}</p>
+<p>Rating: {{itinerary.place.rating}} </p>
+<a href="{% url 'event_detail' itinerary.event.pk %}">Back to List</a>
+<a href="{% url 'itinerary_update' itinerary.pk %}">Edit</a>
+<a href="{% url 'itinerary_delete' itinerary.pk %}">Delete</a>
