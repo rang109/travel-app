@@ -8,21 +8,24 @@ import 'package:client/config/text_styles.dart';
 import 'package:client/widgets/generic/box_button.dart';
 import 'package:client/widgets/auth/otp_input_field.dart';
 
-// Verify Email Page Widget
+import 'package:client/pages/auth/reset_pass_page.dart';
 
-class VerifyEmailPage extends StatefulWidget {
+// Reset Password - Verify Email Page Widget
+
+class ResetPassVerifyEmailPage extends StatefulWidget {
   final String emailAddress;
 
-  const VerifyEmailPage({
+  const ResetPassVerifyEmailPage({
     super.key,
     required this.emailAddress,
   });
 
   @override
-  State<VerifyEmailPage> createState() => _VerifyEmailPageState();
+  State<ResetPassVerifyEmailPage> createState() =>
+      _ResetPassVerifyEmailPageState();
 }
 
-class _VerifyEmailPageState extends State<VerifyEmailPage> {
+class _ResetPassVerifyEmailPageState extends State<ResetPassVerifyEmailPage> {
   String otp = '';
   bool isIncorrectOTP = false;
   String? errorMessage;
@@ -77,6 +80,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
     // update error message
     setState(() => errorMessage = (isIncorrectOTP) ? 'Incorrect OTP.' : null);
+
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const ResetPassPage()));
   }
 
   void handleResendEmail() {
@@ -134,7 +140,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Verify email',
+                      'Check you mail!',
                       style: AppTextStyles.HEADING_2.copyWith(
                         color: AppColors.tomato,
                       ),

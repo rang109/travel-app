@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:client/config/colors.dart';
 import 'package:client/config/text_styles.dart';
@@ -9,9 +8,6 @@ import 'package:client/pages/auth/login_page.dart';
 import 'package:client/pages/auth/verify_email_page.dart';
 
 import 'package:client/widgets/auth/signup_form.dart';
-
-import 'package:client/services/auth/signup.dart';
-import 'package:client/services/auth/send_otp.dart';
 
 // Signup Page Widget
 class SignupPage extends StatefulWidget {
@@ -30,12 +26,13 @@ class _SignupPageState extends State<SignupPage> {
     'password',
     'confirmPassword',
   ];
-  
-  final Map<String, String> signupFormValues = 
-    <String, String>{for (var key in signupFormFields) key: ''};
+
+  final Map<String, String> signupFormValues = <String, String>{
+    for (var key in signupFormFields) key: ''
+  };
 
   Image? bg;
-  
+
   @override
   void initState() {
     super.initState();
@@ -54,22 +51,16 @@ class _SignupPageState extends State<SignupPage> {
     // sendOtp(signupFormValues['emailAddress'] ?? ''); // uncomment once ready
 
     // redirect to VerifyEmailPage
-    Navigator.of(context).push(
-      MaterialPageRoute(
+    Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => VerifyEmailPage(
-          emailAddress: signupFormValues['emailAddress'] ?? '',
-        )
-      )
-    );
+              emailAddress: signupFormValues['emailAddress'] ?? '',
+            )));
   }
 
   // redirect to LoginPage
   void handleToLoginPage() {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const LoginPage()
-      )
-    );
+        MaterialPageRoute(builder: (context) => const LoginPage()));
   }
 
   @override
@@ -94,7 +85,7 @@ class _SignupPageState extends State<SignupPage> {
                   formFields: signupFormFields,
                   formValues: signupFormValues,
                   onFieldChanged: (key, value) =>
-                    setState(() => signupFormValues[key] = value),
+                      setState(() => signupFormValues[key] = value),
                 ),
                 SizedBox(height: 10.0),
                 RichText(
@@ -103,20 +94,17 @@ class _SignupPageState extends State<SignupPage> {
                       color: AppColors.tomato,
                     ),
                     children: <TextSpan>[
+                      TextSpan(text: 'Already have an account?  '),
                       TextSpan(
-                        text: 'Already have an account?  '
-                      ),
-                      TextSpan(
-                        style: AppTextStyles.LABEL_2_1.copyWith(
-                          color: AppColors.tomato,
-                        ),
-                        text: 'Log in',
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            debugPrint('Navigate to Login Page');
-                            handleToLoginPage();
-                          }
-                      ),
+                          style: AppTextStyles.LABEL_2_1.copyWith(
+                            color: AppColors.tomato,
+                          ),
+                          text: 'Log in',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              debugPrint('Navigate to Login Page');
+                              handleToLoginPage();
+                            }),
                     ],
                   ),
                 ),
