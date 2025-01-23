@@ -9,6 +9,8 @@ import 'package:client/pages/auth/forgot_pass_page.dart';
 
 import 'package:client/widgets/auth/login_form.dart';
 
+import 'package:client/services/auth/login.dart';
+
 // Login Page Widget
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -43,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void handleLogin() {
     debugPrint('$loginFormValues');
+    // login(loginFormValues); // uncomment when ready
 
     // redirect to home page/dashboard
     Navigator.of(context)

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:client/pages/auth/login_page.dart';
+import 'package:client/pages/auth/welcome_page.dart';
 
 void main() {
   runApp(const TravelApp());
@@ -20,7 +20,7 @@ class TravelApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginPage(),
+      home: WelcomePage(),
     );
   }
 }

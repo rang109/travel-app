@@ -47,7 +47,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           SizedBox(height: 12.0),
           AuthTextField(
             labelText: 'Enter registered email',
-            onChanged: (value) => widget.onFieldChanged('emailAddress', value),
+            onChanged: (value) => widget.onFieldChanged('email', value),
             validator: emailAddressValidator,
             keyboardType: TextInputType.emailAddress,
           ),

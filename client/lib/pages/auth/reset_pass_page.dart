@@ -8,6 +8,8 @@ import 'package:client/pages/auth/login_page.dart';
 
 import 'package:client/widgets/auth/reset_pass_form.dart';
 
+import 'package:client/services/auth/reset_password.dart';
+
 // Reset Password Page Widget
 class ResetPassPage extends StatefulWidget {
   const ResetPassPage({super.key});
@@ -19,7 +21,6 @@ class ResetPassPage extends StatefulWidget {
 class _ResetPassPageState extends State<ResetPassPage> {
   static const List<String> resetPassFormFields = [
     'password',
-    'confirm password',
   ];
 
   final Map<String, String> resetPassFormValues = <String, String>{
@@ -42,6 +43,7 @@ class _ResetPassPageState extends State<ResetPassPage> {
 
   void handleResetPasswordPage() {
     debugPrint('$resetPassFormValues');
+    // resetPassword(resetPassFormValues['password']!); // uncomment when read
 
     // redirect to login page
     Navigator.of(context)

@@ -85,8 +85,6 @@ class _ResetPassFormState extends State<ResetPassFrom> {
           AuthTextField(
             labelText: 'Confirm New Password',
             isProtected: true,
-            onChanged: (value) =>
-                widget.onFieldChanged('confirm password', value),
             validator: confirmPasswordValidator,
             keyboardType: TextInputType.visiblePassword,
           ),

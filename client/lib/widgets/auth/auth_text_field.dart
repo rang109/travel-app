@@ -69,7 +69,10 @@ class _AuthTextFieldState extends State<AuthTextField> {
       onChanged: widget.onChanged,
       decoration: InputDecoration(
         isDense: true,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 16.0, 
+          vertical: (widget.isProtected ?? false) ? 10.0 : 15.0
+        ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: AppColors.tomato,

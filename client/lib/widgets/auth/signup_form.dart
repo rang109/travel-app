@@ -102,8 +102,8 @@ class _SignupFormState extends State<SignupForm> {
           AuthTextField(
             labelText: 'Enter Email Address',
             onChanged: (value) => 
-              widget.onFieldChanged('emailAddress', value),
-            validator: emailAddressValidator,
+              widget.onFieldChanged('email', value),
+            // validator: emailAddressValidator,
             keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: 12.0),
@@ -118,7 +118,7 @@ class _SignupFormState extends State<SignupForm> {
             isProtected: true,
             onChanged: (value) => 
               widget.onFieldChanged('password', value),
-            validator: passwordValidator,
+            // validator: passwordValidator,
             keyboardType: TextInputType.visiblePassword,
           ),
           SizedBox(height: 12.0),
@@ -127,7 +127,7 @@ class _SignupFormState extends State<SignupForm> {
             isProtected: true,
             onChanged: (value) => 
               widget.onFieldChanged('confirmPassword', value),
-            validator: confirmPasswordValidator,
+            // validator: confirmPasswordValidator,
             keyboardType: TextInputType.visiblePassword
           ),
           // SUBMIT BUTTON
@@ -137,11 +137,11 @@ class _SignupFormState extends State<SignupForm> {
             child: BoxButton(
               onPressed: handleSubmit,
               buttonLabel: 'Signup',
-              disabled: (
-                widget.formFields.any(
-                  (key) => widget.formValues[key] == ''
-                )
-              ),
+              // disabled: (
+              //   widget.formFields.any(
+              //     (key) => widget.formValues[key] == ''
+              //   )
+              // ),
             ),
           ),
         ],

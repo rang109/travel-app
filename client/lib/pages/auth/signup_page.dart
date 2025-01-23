@@ -9,6 +9,8 @@ import 'package:client/pages/auth/verify_email_page.dart';
 
 import 'package:client/widgets/auth/signup_form.dart';
 
+import 'package:client/services/auth/signup.dart';
+
 // Signup Page Widget
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -21,7 +23,7 @@ class _SignupPageState extends State<SignupPage> {
   static const List<String> signupFormFields = [
     'firstName',
     'lastName',
-    'emailAddress',
+    'email',
     'username',
     'password',
     'confirmPassword',
@@ -46,15 +48,25 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   void handleSignup() {
+    var signupFormValues = <String, String>{
+      'firstName': 'John',
+      'lastName': 'Nash',
+      'email': 'johnnash@gmail.com',
+      'username': 'johnnash',
+      'password': 'johnnashgwapo',
+      'confirmPassword': 'johnnashgwapo',
+    };
+
     debugPrint('$signupFormValues');
-    // signup(signupFormValues); // uncomment once ready
-    // sendOtp(signupFormValues['emailAddress'] ?? ''); // uncomment once ready
+
+    signup(signupFormValues); // uncomment once ready
+    // sendOtp(signupFormValues['email'] ?? ''); // uncomment once ready
 
     // redirect to VerifyEmailPage
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => VerifyEmailPage(
-              emailAddress: signupFormValues['emailAddress'] ?? '',
-            )));
+    // Navigator.of(context).push(MaterialPageRoute(
+    //     builder: (context) => VerifyEmailPage(
+    //           emailAddress: signupFormValues['email'] ?? '',
+    //         )));
   }
 
   // redirect to LoginPage

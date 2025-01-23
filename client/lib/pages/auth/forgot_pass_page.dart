@@ -8,6 +8,8 @@ import 'package:client/pages/auth/reset_pass_verification_page.dart';
 
 import 'package:client/widgets/auth/forgot_pass_form.dart';
 
+import 'package:client/services/auth/send_otp.dart';
+
 // ForgotPass Widget
 class ForgotPassPage extends StatefulWidget {
   const ForgotPassPage({super.key});
@@ -18,7 +20,7 @@ class ForgotPassPage extends StatefulWidget {
 
 class _ForgotPassPageState extends State<ForgotPassPage> {
   static const List<String> forgotPassFormField = [
-    'emailAddress',
+    'email',
   ];
 
   final Map<String, String> forgotPassFormValue = <String, String>{
@@ -41,6 +43,7 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
 
   void handleSendCode() {
     debugPrint('$forgotPassFormValue');
+    // sendOtp(forgotPassFormValue['email'] ?? ''); // uncomment when ready
 
     // redirect to VerifyEmailPage
     Navigator.of(context).push(MaterialPageRoute(
