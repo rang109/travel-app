@@ -54,6 +54,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}
+
 ROOT_URLCONF = 'otp_validation.urls'
 
 TEMPLATES = [
@@ -73,6 +83,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'otp_validation.wsgi.application'
+
+APPEND_SLASH = True
 
 
 # Database
