@@ -10,7 +10,7 @@ void sendOtp(String emailAddress) async {
     ..load();
 
   final response = await http.post(
-    Uri.parse('${env['CONNECTION_SCHEME']}${env['CONNECTION_IP']}:${env['CONNECTION_PORT']}/verify-email'), // api endpoint for send otp
+    Uri.parse('${env['CONNECTION_SCHEME']}${env['CONNECTION_IP']}:${env['CONNECTION_PORT']}/verify-email/$emailAddress'), // api endpoint for send otp
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

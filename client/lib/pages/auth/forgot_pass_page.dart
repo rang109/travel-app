@@ -45,6 +45,8 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
     debugPrint('$forgotPassFormValue');
     // sendOtp(forgotPassFormValue['email'] ?? ''); // uncomment when ready
 
+    // get username
+
     // redirect to VerifyEmailPage
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => ResetPassVerifyEmailPage(

@@ -60,12 +60,13 @@ class _SignupPageState extends State<SignupPage> {
     debugPrint('$signupFormValues');
 
     signup(signupFormValues); // uncomment once ready
-    // sendOtp(signupFormValues['email'] ?? ''); // uncomment once ready
+    // sendOtp(signupFormValues['email'] ?? '',); // uncomment once ready
 
     // redirect to VerifyEmailPage
     // Navigator.of(context).push(MaterialPageRoute(
     //     builder: (context) => VerifyEmailPage(
     //           emailAddress: signupFormValues['email'] ?? '',
+    //           username: signupFormValues['username'] ?? '',
     //         )));
   }
 

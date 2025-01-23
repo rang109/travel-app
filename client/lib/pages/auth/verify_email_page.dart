@@ -81,7 +81,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   void handleResendEmail() {
     debugPrint('Resend email');
-    // sendOtp(widget.emailAddress); // uncomment when ready
+    // sendOtp(widget.emailAddress,); // uncomment when ready
     startResendTimer();
   }
 
