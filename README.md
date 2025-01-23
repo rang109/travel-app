@@ -44,3 +44,30 @@
   [back to top](#travel-app)
   
 </details>
+
+**Guidelines**
+<details>
+  <summary><strong style="font-size: 50px;">For Frontend Members:</strong></summary>
+<br>
+  
+  1. For organization purposes, please store your `.dart` files on the following folders:
+     - `pages` for pages (Home Page, Locations Pages, Itinerary Pages, etc.)
+     - `widgets` for widgets and components (button templates, text field templates, timetable, etc.)
+     - `services` for functions and classes that directly communicate with the backend
+  2. It is also highly encourage to store your `.dart` files on more specified folders depending on its assigned feature
+     - `auth` for `.dart` files used for Auth
+     - `home` for Home
+     - `locations` for Locations
+     - `itinerary` for Itinerary
+  3. For widgets, if you think a widget can be generally used on any page (doesn't matter if it's an auth page, home page, etc.),
+     please store them at the `generic` folder
+  4. Colors and font classes are already defined for you in `colors.dart` and `text_styles.dart` respectively under the `config` folder. Please refer
+     to these custom colors and font styles to ensure consistency with the Figma design
+  5. Do NOT commit the `main.dart` file if you're not adding any significant changes to it.
+      - e.g. do NOT commit `main.dart` if your only changes are displaying pages other than the home page (for debugging/testing purposes)
+  6. Only commit changes that you want to be saved to the repo to avoid future merge conflicts
+  7. For more inquiries, please relay those to the #frontend Discord channel 
+    
+  [back to top](#travel-app)
+  
+</details>
