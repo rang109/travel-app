@@ -1,5 +1,11 @@
+### Overall
+
 .env
 venv/*
+
+### Django
+*.cpython-312.pyc
+
 
 ### Flutter Generated
 
