@@ -19,7 +19,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   static const List<String> loginFormFields = [
-    'username',
+    'emailAddress',
     'password',
   ];
 
@@ -46,12 +46,12 @@ class _LoginPageState extends State<LoginPage> {
 
     // redirect to home page/dashboard
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => HomePage()));
+        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   // redirect to forgot password page
   void handleForgotPasswordPage() {
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const ForgotPassPage()));
   }
 

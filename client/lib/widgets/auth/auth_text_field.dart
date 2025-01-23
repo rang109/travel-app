@@ -113,8 +113,8 @@ class _AuthTextFieldState extends State<AuthTextField> {
         ),
         suffixIcon: (widget.isProtected ?? false) ? IconButton(
           icon: Icon(_isVisible ? 
-            Icons.visibility : 
-            Icons.visibility_off
+            Icons.visibility_off : 
+            Icons.visibility
           ),
           color: AppColors.tomato,
           onPressed: () {
