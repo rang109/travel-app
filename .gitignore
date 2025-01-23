@@ -3,8 +3,11 @@
 .env
 venv/*
 
+
 ### Django
-*.cpython-312.pyc
+otp_app/__pycache__/*
+otp_app/migrations/__pycache__/*
+otp_validation/__pycache__/*
 
 
 ### Flutter Generated
