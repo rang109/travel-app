@@ -8,6 +8,7 @@ import 'package:client/pages/auth/login_page.dart';
 import 'package:client/pages/auth/verify_email_page.dart';
 
 import 'package:client/widgets/auth/signup_form.dart';
+import 'package:client/widgets/generic/generator/create_snackbar.dart';
 
 import 'package:client/services/auth/signup.dart';
 import 'package:client/services/auth/send_otp.dart';
@@ -62,27 +63,38 @@ class _SignupPageState extends State<SignupPage> {
 
     debugPrint('$signupFormValues');
 
-    // TODO: add snackbar for error
-    setState(() async =>
-      error = await signup(signupFormValues)
-     ); // uncomment once ready
+    // setState(() =>
+    //   // error = await signup(signupFormValues)
+    //   error = 'An error occurred.'
+    //  ); // uncomment once ready
 
-     if (error == null) return;
+     if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error!);
+      
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
 
     // setState(() async =>
     //   error = await sendOtp(signupFormValues['email'] ?? '')
     //  ); // uncomment once ready
 
-    //  if (error == null) return;
+     if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error!);
+      
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
 
     // redirect to VerifyEmailPage
-    // Navigator.of(context).push(MaterialPageRoute(
-    //     builder: (context) => VerifyEmailPage(
-    //           emailAddress: signupFormValues['email'] ?? '',
-    //           username: signupFormValues['username'] ?? '',
-    //         )));
-
-    
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => VerifyEmailPage(
+            emailAddress: signupFormValues['email'] ?? '',
+          )
+        )
+      );
   }
 
   // redirect to LoginPage

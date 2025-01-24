@@ -7,6 +7,7 @@ import 'package:client/config/text_styles.dart';
 import 'package:client/pages/auth/reset_pass_verification_page.dart';
 
 import 'package:client/widgets/auth/forgot_pass_form.dart';
+import 'package:client/widgets/generic/generator/create_snackbar.dart';
 
 import 'package:client/services/auth/send_otp.dart';
 
@@ -46,12 +47,18 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
   void handleSendCode() {
     debugPrint('$forgotPassFormValue');
 
-    // TODO: add snackbar for error
+    // uncomment when ready
     // setState(() async =>
     //   error = await sendOtp(forgotPassFormValue['email'] ?? '')
-    // ); // uncomment when ready
+    // ); 
 
-    if (error == null) return;
+    if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error!);
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
 
     // redirect to VerifyEmailPage
     Navigator.of(context).push(MaterialPageRoute(

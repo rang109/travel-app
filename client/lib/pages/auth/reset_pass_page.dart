@@ -7,6 +7,7 @@ import 'package:client/config/text_styles.dart';
 import 'package:client/pages/auth/login_page.dart';
 
 import 'package:client/widgets/auth/reset_pass_form.dart';
+import 'package:client/widgets/generic/generator/create_snackbar.dart';
 
 import 'package:client/services/auth/reset_password.dart';
 
@@ -46,12 +47,19 @@ class _ResetPassPageState extends State<ResetPassPage> {
   void handleResetPasswordPage() {
     debugPrint('$resetPassFormValues');
 
-    // TODO: add snackbar for error
+    // uncomment when ready
     // setState(() async =>
     //   error = await resetPassword(resetPassFormValues['password']!)
-    // ); // uncomment when read
+    // );
 
-    if (error == null) return;
+    if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error!);
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
+
 
     // redirect to login page
     Navigator.of(context)

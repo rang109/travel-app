@@ -7,6 +7,7 @@ import 'package:client/config/text_styles.dart';
 
 import 'package:client/widgets/generic/box_button.dart';
 import 'package:client/widgets/auth/otp_input_field.dart';
+import 'package:client/widgets/generic/generator/create_snackbar.dart';
 
 import 'package:client/pages/auth/reset_pass_page.dart';
 
@@ -92,12 +93,19 @@ class _ResetPassVerifyEmailPageState extends State<ResetPassVerifyEmailPage> {
   void handleResendEmail() {
     debugPrint('Resend email');
 
-    // TODO: add snackbar for error
+    // uncomment when ready
     // setState(() async =>
     //   error = await sendOtp(widget.emailAddress)
-    // ); // uncomment when ready
+    // );
 
-    if (error == null) return;
+    if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error!);
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
+
 
     startResendTimer();
   }

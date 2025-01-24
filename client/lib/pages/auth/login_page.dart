@@ -8,6 +8,7 @@ import 'package:client/pages/home_page.dart';
 import 'package:client/pages/auth/forgot_pass_page.dart';
 
 import 'package:client/widgets/auth/login_form.dart';
+import 'package:client/widgets/generic/generator/create_snackbar.dart';
 
 import 'package:client/services/auth/login.dart';
 
@@ -48,12 +49,19 @@ class _LoginPageState extends State<LoginPage> {
   void handleLogin() {
     debugPrint('$loginFormValues');
 
-    // TODO: add snackbar for error
+    // uncomment when ready
     // setState(() async => 
     //  error = login(loginFormValues)
-    //) // uncomment when ready
+    //);
 
-    if (error == null) return;
+    if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error!);
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
+
 
     // redirect to home page/dashboard
     Navigator.of(context)

@@ -7,6 +7,7 @@ import 'package:client/config/text_styles.dart';
 
 import 'package:client/widgets/generic/box_button.dart';
 import 'package:client/widgets/auth/otp_input_field.dart';
+import 'package:client/widgets/generic/generator/create_snackbar.dart';
 
 import 'package:client/services/auth/verify_email.dart';
 
@@ -71,15 +72,22 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   void handleVerifyEmail() {
     if (otp.length != 6) return;
+    debugPrint('OTP: $otp');
 
-    // TODO: uncomment when ready
+    // uncomment when ready
     // send otp to server
-    // debugPrint('OTP: $otp');
     // setState(() async =>
     //   error = await verifyEmail(otp)
-    //  ); // uncomment if ready
+    //  );
 
-    if (error == null) return;
+    if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error!);
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
+
 
     // receive response
     setState(() => isIncorrectOTP = !(otp == 'qwerty')); // temporary
