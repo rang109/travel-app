@@ -86,12 +86,12 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
                   SizedBox(height: 30.0),
                   Text(
                     'Forgot Password?',
-                    style: AppTextStyles.HEADING_2.copyWith(
+                    style: AppTextStyles.heading_2.copyWith(
                       color: AppColors.tomato,
                     ),
                   ),
                   Text('Please enter your registered email.',
-                      style: AppTextStyles.LABEL_1.copyWith(
+                      style: AppTextStyles.label_1.copyWith(
                         color: AppColors.tomato,
                       )),
                   SizedBox(height: 50.0),

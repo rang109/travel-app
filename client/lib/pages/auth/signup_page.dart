@@ -130,13 +130,13 @@ class _SignupPageState extends State<SignupPage> {
                 SizedBox(height: 10.0),
                 RichText(
                   text: TextSpan(
-                    style: AppTextStyles.LABEL_2.copyWith(
+                    style: AppTextStyles.label_2.copyWith(
                       color: AppColors.tomato,
                     ),
                     children: <TextSpan>[
                       TextSpan(text: 'Already have an account?  '),
                       TextSpan(
-                          style: AppTextStyles.LABEL_2_1.copyWith(
+                          style: AppTextStyles.label_2_1.copyWith(
                             color: AppColors.tomato,
                           ),
                           text: 'Log in',

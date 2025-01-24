@@ -62,7 +62,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
       maxLength: widget.maxLength,
       controller: _controller,
       cursorColor: AppColors.tomato,
-      style: AppTextStyles.LABEL_2.copyWith(
+      style: AppTextStyles.label_2.copyWith(
         color: AppColors.tomato,
       ),
       keyboardType: widget.keyboardType,
@@ -101,12 +101,12 @@ class _AuthTextFieldState extends State<AuthTextField> {
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
-        errorStyle: AppTextStyles.LABEL_3.copyWith(
+        errorStyle: AppTextStyles.label_3.copyWith(
           color: AppColors.scarlet,
         ),
         errorMaxLines: 2,
         labelText: widget.labelText ?? 'Enter text',
-        labelStyle: AppTextStyles.LABEL_2.copyWith(
+        labelStyle: AppTextStyles.label_2.copyWith(
           color: AppColors.tomato,
         ),
         floatingLabelStyle: TextStyle(

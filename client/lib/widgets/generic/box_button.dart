@@ -49,7 +49,7 @@ class _BoxButtonState extends State<BoxButton> {
         ),
         child: Text(
           widget.buttonLabel ?? 'Button',
-          style: AppTextStyles.LABEL_1.copyWith(
+          style: AppTextStyles.label_1.copyWith(
             color: (widget.outlined ?? false) ?
             ((widget.disabled ?? false) ? 
               AppColors.lightSalmon : 

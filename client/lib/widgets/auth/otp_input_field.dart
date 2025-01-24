@@ -42,7 +42,7 @@ class _OtpInputFieldState extends State<OtpInputField> {
             PinTheme(
               width: 46.0,
               height: 54.0,
-              textStyle: AppTextStyles.LABEL_2_1.copyWith(
+              textStyle: AppTextStyles.label_2_1.copyWith(
                 color: AppColors.tomato,
               ),
               decoration: BoxDecoration(
@@ -55,7 +55,7 @@ class _OtpInputFieldState extends State<OtpInputField> {
             PinTheme(
               width: 46.0,
               height: 54.0,
-              textStyle: AppTextStyles.LABEL_2_1.copyWith(
+              textStyle: AppTextStyles.label_2_1.copyWith(
                 color: AppColors.tomato,
               ),
               decoration: BoxDecoration(
@@ -72,7 +72,7 @@ class _OtpInputFieldState extends State<OtpInputField> {
             padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
             child: Text(
               widget.errorMessage ?? 'An unexpected error has occurred',
-              style: AppTextStyles.LABEL_2.copyWith(
+              style: AppTextStyles.label_2.copyWith(
                 color: AppColors.scarlet,
               ),
             ),

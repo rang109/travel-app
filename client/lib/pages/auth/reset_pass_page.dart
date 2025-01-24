@@ -84,11 +84,11 @@ class _ResetPassPageState extends State<ResetPassPage> {
                 children: <Widget>[
                   SizedBox(height: 80.0),
                   Text('Reset Password',
-                      style: AppTextStyles.HEADING_2.copyWith(
+                      style: AppTextStyles.heading_2.copyWith(
                         color: AppColors.tomato,
                       )),
                   Text('Create new password.',
-                      style: AppTextStyles.LABEL_1.copyWith(
+                      style: AppTextStyles.label_1.copyWith(
                         color: AppColors.tomato,
                       )),
                   SizedBox(height: 50.0),

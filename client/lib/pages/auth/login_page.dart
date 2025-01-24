@@ -101,13 +101,13 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 10.0),
                   RichText(
                     text: TextSpan(
-                      style: AppTextStyles.LABEL_2.copyWith(
+                      style: AppTextStyles.label_2.copyWith(
                         color: AppColors.tomato,
                       ),
                       children: <TextSpan>[
                         TextSpan(text: 'Forgot Password?  '),
                         TextSpan(
-                            style: AppTextStyles.LABEL_2_1.copyWith(
+                            style: AppTextStyles.label_2_1.copyWith(
                               color: AppColors.tomato,
                             ),
                             text: 'Click Here',

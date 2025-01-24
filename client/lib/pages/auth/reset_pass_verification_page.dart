@@ -160,13 +160,13 @@ class _ResetPassVerifyEmailPageState extends State<ResetPassVerifyEmailPage> {
                   children: <Widget>[
                     Text(
                       'Check you mail!',
-                      style: AppTextStyles.HEADING_2.copyWith(
+                      style: AppTextStyles.heading_2.copyWith(
                         color: AppColors.tomato,
                       ),
                     ),
                     Text(
                       'We sent a code to $censoredEmail.',
-                      style: AppTextStyles.LABEL_1.copyWith(
+                      style: AppTextStyles.label_1.copyWith(
                         color: AppColors.tomato,
                       ),
                     ),

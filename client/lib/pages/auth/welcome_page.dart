@@ -41,14 +41,14 @@ class _WelcomePageState extends State<WelcomePage> {
             children: <Widget>[
               Text(
                 'Welcome!',
-                style: AppTextStyles.HEADING_1.copyWith(
+                style: AppTextStyles.heading_1.copyWith(
                   color: AppColors.tomato,
                   height: 1.2,
                 )
               ),
               Text(
                 'Your Adventure Awaits',
-                style: AppTextStyles.SUBTEXT_1.copyWith(
+                style: AppTextStyles.subtext_1.copyWith(
                   color: AppColors.tomato,
                 )
               ),
