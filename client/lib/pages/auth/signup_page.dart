@@ -80,7 +80,9 @@ class _SignupPageState extends State<SignupPage> {
     //   error = await sendOtp(signupFormValues['email'] ?? '')
     //  ); // uncomment once ready
 
-     if (error != null) {
+    setState(() => error = 'An error occurred.');
+
+    if (error != null) {
       SnackBar snackBar = createSnackBar(message: error!);
       
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -89,12 +91,12 @@ class _SignupPageState extends State<SignupPage> {
     }
 
     // redirect to VerifyEmailPage
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => VerifyEmailPage(
-            emailAddress: signupFormValues['email'] ?? '',
-          )
-        )
-      );
+    // Navigator.of(context).push(MaterialPageRoute(
+    //   builder: (context) => VerifyEmailPage(
+    //         emailAddress: signupFormValues['email'] ?? '',
+    //       )
+    //     )
+    //   );
   }
 
   // redirect to LoginPage
