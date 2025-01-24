@@ -23,7 +23,6 @@ import os
 def index(request):
     return render(request, "index.html")
 
-@csrf_exempt
 def signup(request):
     if request.method == 'POST':
         try:
@@ -107,7 +106,6 @@ def signup(request):
         'message': "Invalid request method. Please use POST."
     }, status=405)
 
-@csrf_exempt
 def verify_email(request, email):
     try:
         user = get_user_model().objects.get(email=email)
@@ -165,7 +163,7 @@ def verify_email(request, email):
         'message': "Invalid request method. Please use POST."
     }, status=405)
 
-@csrf_exempt
+ 
 def send_otp(request):
     if request.method == 'POST':
         try:
@@ -216,7 +214,7 @@ def send_otp(request):
     }, status=405)
 
 
-@csrf_exempt
+ 
 def signin(request):
     if request.method == 'POST':
         try:
@@ -255,7 +253,7 @@ def signin(request):
         'message': "Invalid request method. Please use POST."
     }, status=405)
 
-@csrf_exempt
+ 
 def change_password(request):
     if request.method == 'POST':
         try:
@@ -294,7 +292,7 @@ def change_password(request):
 
     return JsonResponse({'success': False, 'message': "Invalid request method. Please use POST."}, status=405)
 
-@csrf_exempt
+ 
 def logout_user(request):
     if request.method == 'POST':
         logout(request)
@@ -302,7 +300,7 @@ def logout_user(request):
     
     return JsonResponse({'success': False, 'message': "Invalid request method. Please use POST."}, status=405)
 
-@csrf_exempt
+ 
 def get_csrf_token(request):
     csrf_token = get_token(request)
     return JsonResponse({'csrf_token': csrf_token})
