@@ -1,4 +1,5 @@
 import json
+import re
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .models import OtpToken
@@ -26,55 +27,84 @@ def index(request):
 def signup(request):
     if request.method == 'POST':
         try:
-            post_data_dict = json.loads(request.body.decode('utf-8'))  # Parse JSON from request body
-            print(f"POST data as JSON: {post_data_dict}")  # Debugging: Log JSON data to console
+            # Parse JSON request body
+            data = json.loads(request.body)
 
-            form = RegisterForm(post_data_dict)
-            if form.is_valid():
-                user = form.save(commit=False)  # Don't commit the save yet
-                user.is_active = False  # Make sure the user is not active
-                user.save()  # Now save the user
+            first_name = data.get('first_name', '').strip()
+            last_name = data.get('last_name', '').strip()
+            email = data.get('email', '').strip()
+            username = data.get('username', '').strip()
+            password1 = data.get('password1', '')
+            password2 = data.get('password2', '')
 
-                response_data = {
-                    'success': True,
-                    'message': "Account created successfully! An OTP was sent to your Email."
-                }
-                return JsonResponse(response_data)
-            else:
-                print(f"Form errors: {form.errors}")  # Debugging: Log form errors to console
+            # Validate required fields
+            if not all([first_name, last_name, email, username, password1, password2]):
                 return JsonResponse({
                     'success': False,
-                    'message': 'Invalid form data',
-                    'errors': form.errors
+                    'message': "All fields are required."
                 }, status=400)
-        except json.JSONDecodeError:
+
+            # Validate email format
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+                return JsonResponse({
+                    'success': False,
+                    'message': "Invalid email format."
+                }, status=400)
+
+            # Validate username uniqueness
+            User = get_user_model()
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({
+                    'success': False,
+                    'message': "Username already taken."
+                }, status=400)
+
+            # Validate email uniqueness
+            if User.objects.filter(email=email).exists():
+                return JsonResponse({
+                    'success': False,
+                    'message': "Email already registered."
+                }, status=400)
+
+            # Validate password match
+            if password1 != password2:
+                return JsonResponse({
+                    'success': False,
+                    'message': "Passwords do not match."
+                }, status=400)
+
+            # Validate password complexity (must contain letters and numbers)
+            if not (re.search(r"[A-Za-z]", password1) and re.search(r"[0-9]", password1)):
+                return JsonResponse({
+                    'success': False,
+                    'message': "Password must contain both letters and numbers."
+                }, status=400)
+
+            # Create new user
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password1,
+                first_name=first_name,
+                last_name=last_name
+            )
+            user.is_active = False  # User needs to verify OTP first
+            user.save()
+
             return JsonResponse({
-                'success': False,
-                'message': 'Invalid JSON data in request body'
-            }, status=400)
-        
-    elif request.method == 'GET':
-        try:
-            # Parse the raw body data
-            body_unicode = request.body.decode('utf-8')
-            body_data = json.loads(body_unicode)
-            
-            response_data = {
                 'success': True,
-                'message': 'Received signup data',
-                'data': body_data
-            }
-            return JsonResponse(response_data)
+                'message': "Signup successful. Please verify your email."
+            }, status=201)
+
         except json.JSONDecodeError:
             return JsonResponse({
                 'success': False,
-                'message': 'Invalid JSON in request body'
+                'message': "Invalid JSON format."
             }, status=400)
 
-    # Fallback for other methods
     return JsonResponse({
-        'success': False, 
-        'message': 'Invalid request method'
+        'success': False,
+        'message': "Invalid request method. Please use POST."
     }, status=405)
 
 @csrf_exempt
