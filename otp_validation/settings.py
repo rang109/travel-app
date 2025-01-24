@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
     {
-        'NAME': 'your_app.validators.LetterNumberValidator',  # Replace 'your_app' with your actual app name
+        'NAME': 'otp_app.validators.LetterNumberValidator',  
     },
 ]
 
