@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.utils import timezone
 from django.core.mail import send_mail
+from django.utils.timezone import now
+from django.views.decorators.csrf import csrf_exempt
 
 from decouple import config
 import os
@@ -120,24 +122,36 @@ def index(request):
 
 from django.http import JsonResponse
 
+@csrf_exempt
 def signup(request):
     if request.method == 'POST':
-        post_data_dict = request.POST.dict()  # Convert QueryDict to a standard dictionary
-        post_data_json = json.dumps(post_data_dict)  # Convert dictionary to JSON string
-        print(f"POST data as JSON: {post_data_json}")  # Debugging: Log JSON data to console
+        try:
+            post_data_dict = json.loads(request.body.decode('utf-8'))  # Parse JSON from request body
+            print(f"POST data as JSON: {post_data_dict}")  # Debugging: Log JSON data to console
 
-        form = RegisterForm(post_data_dict)
-        if form.is_valid():
-            user = form.save(commit=False)  # Don't commit the save yet
-            user.is_active = False  # Make sure the user is not active
-            user.save()  # Now save the user
+            form = RegisterForm(post_data_dict)
+            if form.is_valid():
+                user = form.save(commit=False)  # Don't commit the save yet
+                user.is_active = False  # Make sure the user is not active
+                user.save()  # Now save the user
 
-            response_data = {
-                'success': True,
-                'message': "Account created successfully! An OTP was sent to your Email."
-            }
-            return JsonResponse(response_data)
-
+                response_data = {
+                    'success': True,
+                    'message': "Account created successfully! An OTP was sent to your Email."
+                }
+                return JsonResponse(response_data)
+            else:
+                print(f"Form errors: {form.errors}")  # Debugging: Log form errors to console
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Invalid form data',
+                    'errors': form.errors
+                }, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'success': False,
+                'message': 'Invalid JSON data in request body'
+            }, status=400)
         
     elif request.method == 'GET':
         try:
@@ -163,51 +177,82 @@ def signup(request):
         'message': 'Invalid request method'
     }, status=405)
 
-def verify_email(request, username):
-    user = get_user_model().objects.get(username=username)
+@csrf_exempt
+def verify_email(request, email):
+    try:
+        user = get_user_model().objects.get(email=email)
+    except get_user_model().DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'message': 'User with this email does not exist.'
+        }, status=404)
+
     user_otp = OtpToken.objects.filter(user=user).last()
+    if not user_otp:
+        return JsonResponse({
+            'success': False,
+            'message': 'No OTP found for this user.'
+        }, status=404)
 
     if request.method == 'POST':
-        post_data_dict = request.POST.dict()
-        post_data_json = json.dumps(post_data_dict)
-        print(f"POST data as JSON: {post_data_json}")
+        try:
+            post_data_dict = json.loads(request.body.decode('utf-8'))  # Parse JSON body
+            print(f"POST data as JSON: {post_data_dict}")  # Debugging: Log parsed JSON data
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'success': False,
+                'message': 'Invalid JSON data in request body'
+            }, status=400)
+
+        if 'otp_code' not in post_data_dict:
+            return JsonResponse({
+                'success': False,
+                'message': 'OTP code is required.'
+            }, status=400)
 
         if user_otp.otp_code == post_data_dict['otp_code']:
-            if user_otp.otp_expires_at > timezone.now():
+            if user_otp.otp_expires_at > now():
                 user.is_active = True
                 user.save()
 
-                response_data = {
+                return JsonResponse({
                     'success': True,
                     'message': "Account activated successfully! You can log in."
-                }
-                return JsonResponse(response_data)
+                })
             else:
-                response_data = {
+                return JsonResponse({
                     'success': False,
                     'message': "The OTP has expired. Get a new OTP."
-                }
-                return JsonResponse(response_data)
+                })
         else:
-            response_data = {
+            return JsonResponse({
                 'success': False,
                 'message': "Invalid OTP entered. Please try again."
-            }
-            return JsonResponse(response_data)
-        
-    response_data = {
+            })
+
+    return JsonResponse({
         'success': False,
         'message': "Invalid request method. Please use POST."
-    }
-    return JsonResponse(response_data)
+    }, status=405)
 
+@csrf_exempt
 def resend_otp(request):
     if request.method == 'POST':
-        post_data_dict = request.POST.dict()
-        post_data_json = json.dumps(post_data_dict)
-        print(f"POST data as JSON: {post_data_json}")
+        try:
+            post_data_dict = json.loads(request.body)  # Parse JSON body
+            user_email = post_data_dict.get("otp_email")
 
-        user_email = post_data_dict.get("otp_email")
+            if not user_email:
+                return JsonResponse({
+                    'success': False,
+                    'message': "Email field is required."
+                }, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'success': False,
+                'message': "Invalid JSON format."
+            }, status=400)
+
         if get_user_model().objects.filter(email=user_email).exists():
             user = get_user_model().objects.get(email=user_email)
             otp = OtpToken.objects.create(user=user, otp_expires_at=timezone.now() + timezone.timedelta(minutes=5))
@@ -220,53 +265,62 @@ def resend_otp(request):
                 http://127.0.0.1:8000/verify-email/{user.username}
             """
             sender = config('EMAIL_HOST_USER')
-            receiver = [user.email, ]
+            receiver = [user.email]
 
             # Send email
             send_mail(subject, message, sender, receiver, fail_silently=False)
 
-            response_data = {
+            return JsonResponse({
                 'success': True,
                 'message': "A new OTP has been sent to your email address."
-            }
-            return JsonResponse(response_data)
+            })
         else:
-            response_data = {
+            return JsonResponse({
                 'success': False,
                 'message': "This email doesn't exist in the database."
-            }
-            return JsonResponse(response_data)
+            })
 
-    response_data = {
+    return JsonResponse({
         'success': False,
         'message': "Invalid request method. Please use POST."
-    }
-    return JsonResponse(response_data)
+    }, status=405)
 
-from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def signin(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            email = data.get('email')  # Changed from username
+            email = data.get('email')  # Ensure email is provided
             password = data.get('password')
+
+            if not email or not password:
+                return JsonResponse({
+                    'success': False, 
+                    'message': 'Email and password are required.'
+                }, status=400)
         except json.JSONDecodeError:
             return JsonResponse({
                 'success': False, 
                 'message': 'Invalid JSON'
             }, status=400)
 
-        user = authenticate(username=email, password=password)
+        # Authenticate using email (Custom Authentication Backend)
+        user = authenticate(request, username=email, password=password)
+
         if user is not None:
             login(request, user)
             return JsonResponse({
                 'success': True,
-                'message': f"Hi {user.username}, logged in."
+                'message': f"Hi {user.username}, logged in successfully."
             })
         else:
             return JsonResponse({
                 'success': False,
                 'message': "Invalid credentials."
             }, status=400)
+
+    return JsonResponse({
+        'success': False,
+        'message': "Invalid request method. Please use POST."
+    }, status=405)
