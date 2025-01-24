@@ -10,12 +10,12 @@ Future<String?> sendOtp(String emailAddress) async {
     ..load();
 
   final response = await http.post(
-    Uri.parse('${env['CONNECTION_SCHEME']}${env['CONNECTION_IP']}:${env['CONNECTION_PORT']}/verify-email/$emailAddress'), // api endpoint for send otp
+    Uri.parse('${env['CONNECTION_SCHEME']}${env['CONNECTION_IP']}:${env['CONNECTION_PORT']}/send-otp/'), // api endpoint for send otp
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      'email': emailAddress,
+      'otp_email': emailAddress,
     }),
   );
 

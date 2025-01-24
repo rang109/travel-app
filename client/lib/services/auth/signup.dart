@@ -10,16 +10,17 @@ Future<String?> signup(Map<String, String> userDetails) async {
     ..load();
   
   final response = await http.post(
-    Uri.parse('${env['CONNECTION_SCHEME']}${env['CONNECTION_IP']}:${env['CONNECTION_PORT']}/register'), // api endpoint for signup
+    Uri.parse('${env['CONNECTION_SCHEME']}${env['CONNECTION_IP']}:${env['CONNECTION_PORT']}/register/'), // api endpoint for signup
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      'firstName': userDetails['firstName'] ?? '',
-      'lastName': userDetails['lastName'] ?? '',
+      'first_name': userDetails['firstName'] ?? '',
+      'last_name': userDetails['lastName'] ?? '',
       'email': userDetails['email'] ?? '',
       'username': userDetails['username'] ?? '',
-      'password': userDetails['password'] ?? '',
+      'password1': userDetails['password'] ?? '',
+      'password2': userDetails['confirmPassword'] ?? '',
     }),
   );
 

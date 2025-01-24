@@ -10,7 +10,7 @@ Future<String?> login(Map<String, String> userDetails) async {
     ..load();
   
   final response = await http.post(
-    Uri.parse('${env['CONNECTION_SCHEME']}${env['CONNECTION_IP']}:${env['CONNECTION_PORT']}/signin'), // api endpoint for signup
+    Uri.parse('${env['CONNECTION_SCHEME']}${env['CONNECTION_IP']}:${env['CONNECTION_PORT']}/login/'), // api endpoint for signup
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
