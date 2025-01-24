@@ -138,13 +138,30 @@ def signup(request):
             }
             return JsonResponse(response_data)
 
-        # If form is invalid, return errors
-        response_data = {
-            'success': False,
-            'errors': form.errors
-        }
-        return JsonResponse(response_data)
+        
+    elif request.method == 'GET':
+        try:
+            # Parse the raw body data
+            body_unicode = request.body.decode('utf-8')
+            body_data = json.loads(body_unicode)
+            
+            response_data = {
+                'success': True,
+                'message': 'Received signup data',
+                'data': body_data
+            }
+            return JsonResponse(response_data)
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'success': False,
+                'message': 'Invalid JSON in request body'
+            }, status=400)
 
+    # Fallback for other methods
+    return JsonResponse({
+        'success': False, 
+        'message': 'Invalid request method'
+    }, status=405)
 
 def verify_email(request, username):
     user = get_user_model().objects.get(username=username)
@@ -177,7 +194,7 @@ def verify_email(request, username):
                 'message': "Invalid OTP entered. Please try again."
             }
             return JsonResponse(response_data)
-
+        
     response_data = {
         'success': False,
         'message': "Invalid request method. Please use POST."
@@ -226,32 +243,30 @@ def resend_otp(request):
     }
     return JsonResponse(response_data)
 
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
 def signin(request):
     if request.method == 'POST':
-        post_data_dict = request.POST.dict()
-        post_data_json = json.dumps(post_data_dict)
-        print(f"POST data as JSON: {post_data_json}")
+        try:
+            data = json.loads(request.body)
+            email = data.get('email')  # Changed from username
+            password = data.get('password')
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'success': False, 
+                'message': 'Invalid JSON'
+            }, status=400)
 
-        username = post_data_dict['username']
-        password = post_data_dict['password']
-        user = authenticate(request, username=username, password=password)
-
+        user = authenticate(username=email, password=password)
         if user is not None:
             login(request, user)
-            response_data = {
+            return JsonResponse({
                 'success': True,
-                'message': f"Hi {request.user.username}, you are now logged in."
-            }
-            return JsonResponse(response_data)
+                'message': f"Hi {user.username}, logged in."
+            })
         else:
-            response_data = {
+            return JsonResponse({
                 'success': False,
                 'message': "Invalid credentials."
-            }
-            return JsonResponse(response_data)
-
-    response_data = {
-        'success': False,
-        'message': "Invalid request method. Please use POST."
-    }
-    return JsonResponse(response_data)
+            }, status=400)
