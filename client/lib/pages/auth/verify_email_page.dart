@@ -8,6 +8,8 @@ import 'package:client/config/text_styles.dart';
 import 'package:client/widgets/generic/box_button.dart';
 import 'package:client/widgets/auth/otp_input_field.dart';
 
+import 'package:client/services/auth/verify_email.dart';
+
 // Verify Email Page Widget
 
 class VerifyEmailPage extends StatefulWidget {
@@ -34,6 +36,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   Timer? resendTimer;
 
   Image? bg;
+
+  String? error;
 
   @override
   void initState() {
@@ -68,9 +72,14 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   void handleVerifyEmail() {
     if (otp.length != 6) return;
 
+    // TODO: uncomment when ready
     // send otp to server
-    debugPrint('OTP: $otp');
-    // verifyEmail(otp); // uncomment if ready
+    // debugPrint('OTP: $otp');
+    // setState(() async =>
+    //   error = await verifyEmail(otp)
+    //  ); // uncomment if ready
+
+    if (error == null) return;
 
     // receive response
     setState(() => isIncorrectOTP = !(otp == 'qwerty')); // temporary

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // temp
-void login(Map<String, String> userDetails) async {
+Future<String?> login(Map<String, String> userDetails) async {
   DotEnv env = DotEnv(includePlatformEnvironment: true)
     ..load();
   
@@ -21,4 +21,10 @@ void login(Map<String, String> userDetails) async {
   );
 
   debugPrint(response.body);
+
+  if (response.statusCode >= 400) {
+    return jsonDecode(response.body)['message'];
+  }
+
+  return null;
 }

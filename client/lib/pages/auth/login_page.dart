@@ -31,6 +31,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Image? bg;
 
+  String? error;
+
   @override
   void initState() {
     super.initState();
@@ -45,7 +47,13 @@ class _LoginPageState extends State<LoginPage> {
 
   void handleLogin() {
     debugPrint('$loginFormValues');
-    // login(loginFormValues); // uncomment when ready
+
+    // TODO: add snackbar for error
+    // setState(() async => 
+    //  error = login(loginFormValues)
+    //) // uncomment when ready
+
+    if (error == null) return;
 
     // redirect to home page/dashboard
     Navigator.of(context)

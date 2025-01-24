@@ -10,6 +10,8 @@ import 'package:client/widgets/auth/otp_input_field.dart';
 
 import 'package:client/pages/auth/reset_pass_page.dart';
 
+import 'package:client/services/auth/send_otp.dart';
+
 // Reset Password - Verify Email Page Widget
 
 class ResetPassVerifyEmailPage extends StatefulWidget {
@@ -37,6 +39,8 @@ class _ResetPassVerifyEmailPageState extends State<ResetPassVerifyEmailPage> {
   Timer? resendTimer;
 
   Image? bg;
+
+  String? error;
 
   @override
   void initState() {
@@ -87,7 +91,14 @@ class _ResetPassVerifyEmailPageState extends State<ResetPassVerifyEmailPage> {
 
   void handleResendEmail() {
     debugPrint('Resend email');
-    // sendOtp(widget.emailAddress); // uncomment when ready
+
+    // TODO: add snackbar for error
+    // setState(() async =>
+    //   error = await sendOtp(widget.emailAddress)
+    // ); // uncomment when ready
+
+    if (error == null) return;
+
     startResendTimer();
   }
 

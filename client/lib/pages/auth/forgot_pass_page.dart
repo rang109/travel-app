@@ -29,6 +29,8 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
 
   Image? bg;
 
+  String? error;
+
   @override
   void initState() {
     super.initState();
@@ -43,9 +45,13 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
 
   void handleSendCode() {
     debugPrint('$forgotPassFormValue');
-    // sendOtp(forgotPassFormValue['email'] ?? ''); // uncomment when ready
 
-    // get username
+    // TODO: add snackbar for error
+    // setState(() async =>
+    //   error = await sendOtp(forgotPassFormValue['email'] ?? '')
+    // ); // uncomment when ready
+
+    if (error == null) return;
 
     // redirect to VerifyEmailPage
     Navigator.of(context).push(MaterialPageRoute(

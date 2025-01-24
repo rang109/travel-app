@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // temp
-void verifyEmail(String otp) async {
+Future<String?> verifyEmail(String otp) async {
   DotEnv env = DotEnv(includePlatformEnvironment: true)
     ..load();
   
@@ -20,4 +20,10 @@ void verifyEmail(String otp) async {
   );
 
   debugPrint(response.body);
+
+  if (response.statusCode >= 400) {
+    return jsonDecode(response.body)['message'];
+  }
+  
+  return null;
 }

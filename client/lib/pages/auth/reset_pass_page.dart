@@ -29,6 +29,8 @@ class _ResetPassPageState extends State<ResetPassPage> {
 
   Image? bg;
 
+  String? error;
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +45,13 @@ class _ResetPassPageState extends State<ResetPassPage> {
 
   void handleResetPasswordPage() {
     debugPrint('$resetPassFormValues');
-    // resetPassword(resetPassFormValues['password']!); // uncomment when read
+
+    // TODO: add snackbar for error
+    // setState(() async =>
+    //   error = await resetPassword(resetPassFormValues['password']!)
+    // ); // uncomment when read
+
+    if (error == null) return;
 
     // redirect to login page
     Navigator.of(context)

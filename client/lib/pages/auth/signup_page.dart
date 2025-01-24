@@ -10,6 +10,7 @@ import 'package:client/pages/auth/verify_email_page.dart';
 import 'package:client/widgets/auth/signup_form.dart';
 
 import 'package:client/services/auth/signup.dart';
+import 'package:client/services/auth/send_otp.dart';
 
 // Signup Page Widget
 class SignupPage extends StatefulWidget {
@@ -35,6 +36,8 @@ class _SignupPageState extends State<SignupPage> {
 
   Image? bg;
 
+  String? error;
+
   @override
   void initState() {
     super.initState();
@@ -59,8 +62,18 @@ class _SignupPageState extends State<SignupPage> {
 
     debugPrint('$signupFormValues');
 
-    signup(signupFormValues); // uncomment once ready
-    // sendOtp(signupFormValues['email'] ?? '',); // uncomment once ready
+    // TODO: add snackbar for error
+    setState(() async =>
+      error = await signup(signupFormValues)
+     ); // uncomment once ready
+
+     if (error == null) return;
+
+    // setState(() async =>
+    //   error = await sendOtp(signupFormValues['email'] ?? '')
+    //  ); // uncomment once ready
+
+    //  if (error == null) return;
 
     // redirect to VerifyEmailPage
     // Navigator.of(context).push(MaterialPageRoute(
@@ -68,6 +81,8 @@ class _SignupPageState extends State<SignupPage> {
     //           emailAddress: signupFormValues['email'] ?? '',
     //           username: signupFormValues['username'] ?? '',
     //         )));
+
+    
   }
 
   // redirect to LoginPage
