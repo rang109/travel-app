@@ -30,8 +30,8 @@ SECRET_KEY = 'django-insecure-n9z7m@y8)f31h7=qgw@qgjj-qp&ndr%$l%t0axl^9s*_m5qob%
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '172.16.18.213',
     '127.0.0.1',
+    config('CONNECTION_IP'),
 ]
 
 
@@ -57,6 +57,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}
+
 ROOT_URLCONF = 'otp_validation.urls'
 
 TEMPLATES = [
@@ -76,6 +86,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'otp_validation.wsgi.application'
+
+APPEND_SLASH = True
 
 
 # Database
@@ -98,6 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 8},
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -105,7 +118,11 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'otp_app.validators.LetterNumberValidator',  
+    },
 ]
+
 
 
 # Internationalization
@@ -142,5 +159,10 @@ EMAIL_USE_SSL = False
 
 
 CORS_ALLOWED_ORIGINS = [
-    '172.16.18.213'
+    config('CONNECTION_IP')
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Default backend
+    'otp_app.backends.EmailAuthBackend',  # Custom email authentication backend
 ]
