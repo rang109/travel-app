@@ -9,13 +9,13 @@ import 'package:travel_app/config/text_styles.dart';
 class OtpInputField extends StatefulWidget {
   final Function(String)? onChanged;
   final bool? error; 
-  // final String? errorMessage;
+  // final String? errorMessage; // uncomment if needed
   
   const OtpInputField({
     super.key,
     this.onChanged,
     this.error,
-    // this.errorMessage,
+    // this.errorMessage, // uncomment if needed
   });
 
   @override
@@ -67,6 +67,7 @@ class _OtpInputFieldState extends State<OtpInputField> {
               ),
             ),
         ),
+        // uncomment if needed
         // if (widget.error ?? false)
         //   Padding(
         //     padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),

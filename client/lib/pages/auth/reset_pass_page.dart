@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/config/colors.dart';
 import 'package:travel_app/config/text_styles.dart';
 
-import 'package:travel_app/pages/auth/login_page.dart';
-
 import 'package:travel_app/widgets/auth/reset_pass_form.dart';
 import 'package:travel_app/widgets/generic/generator/create_snackbar.dart';
 

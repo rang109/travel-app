@@ -52,15 +52,6 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   void handleSignup() async {
-    // var signupFormValues = <String, String>{
-    //   'firstName': 'C',
-    //   'lastName': 'B',
-    //   'email': 'brillos.christian@gmail.com',
-    //   'username': 'creeees',
-    //   'password': 'qwerty123!',
-    //   'confirmPassword': 'qwerty123!',
-    // };
-
     // send signup request to server
     String? errorBuffer = await signup(signupFormValues);
     setState(() =>

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:is_valid/is_valid.dart';
 
 import 'package:travel_app/widgets/auth/auth_text_field.dart';
 import 'package:travel_app/widgets/generic/box_button.dart';
+
+import 'package:travel_app/utils/validators/email_validator.dart';
+import 'package:travel_app/utils/validators/password_validator.dart';
 
 class SignupForm extends StatefulWidget {
   final VoidCallback onSubmit;
@@ -23,38 +25,7 @@ class SignupForm extends StatefulWidget {
 }
 
 class _SignupFormState extends State<SignupForm> {
-  final _formKey = GlobalKey<FormState>();
-
-  String? emailAddressValidator(String? emailAddress) {
-    return (IsValid.validateEmail(emailAddress ?? '')) ?
-      null :
-      'Please enter a valid email address';
-  }
-
-  String? passwordValidator(String? password) {
-    Map<PasswordValidation, dynamic> passwordValidationOptions = {
-      PasswordValidation.minLength: 8,
-      PasswordValidation.disallowLetters: false,
-      PasswordValidation.disallowNumbers: false,
-      PasswordValidation.disallowSpecialChars: false,
-    };
-    
-    if (password == null) {
-      return 'Password is empty.';
-    } else if (password.length < 8) {
-      return 'Your password is too short.';
-    } else if (!RegExp(r'[0-9!@#\$%^&*(),.?":{}|<>_\-+=/\[\]\\]').hasMatch(password)) {
-      return 'Your password should contain at least one number and one special character.';
-    } else if (!RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-+=/\[\]\\]').hasMatch(password)) {
-      return 'Your password should contain at least one special character.';
-    } else if (!RegExp(r'[0-9]').hasMatch(password)) {
-      return 'Your password should contain at least one number.';
-    } else if (IsValid.validatePassword(password, passwordValidationOptions)) {
-      return null;
-    } else {
-      return 'An unexpected error occurred. Please try again.';
-    }
-  }
+  final _formKey = GlobalKey<FormState>();  
 
   String? confirmPasswordValidator(String? confirmPassword) {
     if (confirmPassword != widget.formValues['password']) {

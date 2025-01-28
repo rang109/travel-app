@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:is_valid/is_valid.dart';
 
 import 'package:travel_app/widgets/auth/auth_text_field.dart';
 import 'package:travel_app/widgets/generic/box_button.dart';
+
+import 'package:travel_app/utils/validators/email_validator.dart';
 
 class ForgotPassForm extends StatefulWidget {
   final VoidCallback onSubmit;
@@ -24,12 +25,6 @@ class ForgotPassForm extends StatefulWidget {
 
 class _ForgotPassFormState extends State<ForgotPassForm> {
   final _formKey = GlobalKey<FormState>();
-
-  String? emailAddressValidator(String? emailAddress) {
-    return (IsValid.validateEmail(emailAddress ?? ''))
-        ? null
-        : 'Please enter a valid email address';
-  }
 
   void handleSubmit() {
     if (_formKey.currentState!.validate()) {
