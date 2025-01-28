@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:client/config/colors.dart';
-import 'package:client/config/text_styles.dart';
+import 'package:travel_app/config/colors.dart';
+import 'package:travel_app/config/text_styles.dart';
 
-import 'package:client/pages/auth/login_page.dart';
-import 'package:client/pages/auth/signup_page.dart';
+import 'package:travel_app/pages/auth/login_page.dart';
+import 'package:travel_app/pages/auth/signup_page.dart';
 
-import 'package:client/widgets/generic/box_button.dart';
+import 'package:travel_app/widgets/generic/box_button.dart';
 
 // Welcome Page Widget
 class WelcomePage extends StatefulWidget {

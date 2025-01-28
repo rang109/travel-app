@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
-import 'package:client/config/colors.dart';
-import 'package:client/config/text_styles.dart';
+import 'package:travel_app/config/colors.dart';
+import 'package:travel_app/config/text_styles.dart';
 
-import 'package:client/pages/auth/login_page.dart';
-import 'package:client/pages/auth/verify_email_page.dart';
+import 'package:travel_app/pages/auth/login_page.dart';
+import 'package:travel_app/pages/auth/verify_email_page.dart';
 
-import 'package:client/widgets/auth/signup_form.dart';
-import 'package:client/widgets/generic/generator/create_snackbar.dart';
+import 'package:travel_app/widgets/auth/signup_form.dart';
+import 'package:travel_app/widgets/generic/generator/create_snackbar.dart';
 
-import 'package:client/services/auth/signup.dart';
-import 'package:client/services/auth/send_otp.dart';
+import 'package:travel_app/services/auth/signup.dart';
+import 'package:travel_app/services/auth/send_otp.dart';
 
 // Signup Page Widget
 class SignupPage extends StatefulWidget {
@@ -51,52 +51,57 @@ class _SignupPageState extends State<SignupPage> {
     precacheImage(bg!.image, context);
   }
 
-  void handleSignup() {
-    var signupFormValues = <String, String>{
-      'firstName': 'John',
-      'lastName': 'Nash',
-      'email': 'johnnash@gmail.com',
-      'username': 'johnnash',
-      'password': 'johnnashgwapo',
-      'confirmPassword': 'johnnashgwapo',
-    };
+  void handleSignup() async {
+    // var signupFormValues = <String, String>{
+    //   'firstName': 'C',
+    //   'lastName': 'B',
+    //   'email': 'brillos.christian@gmail.com',
+    //   'username': 'creeees',
+    //   'password': 'qwerty123!',
+    //   'confirmPassword': 'qwerty123!',
+    // };
 
-    debugPrint('$signupFormValues');
-
-    // setState(() =>
-    //   // error = await signup(signupFormValues)
-    //   error = 'An error occurred.'
-    //  ); // uncomment once ready
-
-     if (error != null) {
-      SnackBar snackBar = createSnackBar(message: error!);
-      
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-      return;
-    }
-
-    // setState(() async =>
-    //   error = await sendOtp(signupFormValues['email'] ?? '')
-    //  ); // uncomment once ready
-
-    setState(() => error = 'An error occurred.');
+    // send signup request to server
+    String? errorBuffer = await signup(signupFormValues);
+    setState(() =>
+      error = errorBuffer
+    );
 
     if (error != null) {
-      SnackBar snackBar = createSnackBar(message: error!);
+      SnackBar snackBar = createSnackBar(message: error);
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
+
+    // send sendOtp request to server
+    errorBuffer = await sendOtp(signupFormValues['email'] ?? '');
+    setState(() =>
+      error = errorBuffer
+     );
+
+    if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error);
+
+      if (!mounted) return;
       
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       return;
     }
 
+    if (!mounted) return;
+
     // redirect to VerifyEmailPage
-    // Navigator.of(context).push(MaterialPageRoute(
-    //   builder: (context) => VerifyEmailPage(
-    //         emailAddress: signupFormValues['email'] ?? '',
-    //       )
-    //     )
-    //   );
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => VerifyEmailPage(
+            emailAddress: signupFormValues['email'] ?? '',
+          )
+        )
+      );
   }
 
   // redirect to LoginPage

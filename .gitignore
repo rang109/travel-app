@@ -1,15 +1,24 @@
 ### Overall
 
-.env
-venv/*
+
+### SERVER
+
+server/.env
+server/venv/
+server/travelEnv/
 
 
-### Django
+## Django
+
 *.pyc
-db.sqlite3
+server/db.sqlite3
+server/debug.log
 
 
-### Flutter Generated
+## CLIENT
+
+
+## Flutter Generated
 
 # Miscellaneous
 client/*.class

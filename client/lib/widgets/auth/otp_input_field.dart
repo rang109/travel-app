@@ -3,19 +3,19 @@ import 'package:flutter/services.dart';
 
 import 'package:pinput/pinput.dart';
 
-import 'package:client/config/colors.dart';
-import 'package:client/config/text_styles.dart';
+import 'package:travel_app/config/colors.dart';
+import 'package:travel_app/config/text_styles.dart';
 
 class OtpInputField extends StatefulWidget {
   final Function(String)? onChanged;
-  final bool? error;
-  final String? errorMessage;
+  final bool? error; 
+  // final String? errorMessage;
   
   const OtpInputField({
     super.key,
     this.onChanged,
     this.error,
-    this.errorMessage,
+    // this.errorMessage,
   });
 
   @override
@@ -67,16 +67,16 @@ class _OtpInputFieldState extends State<OtpInputField> {
               ),
             ),
         ),
-        if (widget.error ?? false)
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
-            child: Text(
-              widget.errorMessage ?? 'An unexpected error has occurred',
-              style: AppTextStyles.label_2.copyWith(
-                color: AppColors.scarlet,
-              ),
-            ),
-          ),
+        // if (widget.error ?? false)
+        //   Padding(
+        //     padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
+        //     child: Text(
+        //       widget.errorMessage ?? 'An unexpected error has occurred',
+        //       style: AppTextStyles.label_2.copyWith(
+        //         color: AppColors.scarlet,
+        //       ),
+        //     ),
+        //   ),
       ],
     );
   }

@@ -2,14 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:client/config/colors.dart';
-import 'package:client/config/text_styles.dart';
+import 'package:travel_app/config/colors.dart';
+import 'package:travel_app/config/text_styles.dart';
 
-import 'package:client/widgets/generic/box_button.dart';
-import 'package:client/widgets/auth/otp_input_field.dart';
-import 'package:client/widgets/generic/generator/create_snackbar.dart';
+import 'package:travel_app/widgets/generic/box_button.dart';
+import 'package:travel_app/widgets/auth/otp_input_field.dart';
+import 'package:travel_app/widgets/generic/generator/create_snackbar.dart';
 
-import 'package:client/services/auth/verify_email.dart';
+import 'package:travel_app/services/auth/verify_email.dart';
+import 'package:travel_app/services/auth/send_otp.dart';
 
 // Verify Email Page Widget
 
@@ -28,7 +29,6 @@ class VerifyEmailPage extends StatefulWidget {
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
   String otp = '';
   bool isIncorrectOTP = false;
-  String? errorMessage;
 
   String? censoredEmail;
 
@@ -70,35 +70,46 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     super.dispose();
   }
 
-  void handleVerifyEmail() {
+  void handleVerifyEmail() async {
     if (otp.length != 6) return;
-    debugPrint('OTP: $otp');
 
-    // uncomment when ready
-    // send otp to server
-    // setState(() async =>
-    //   error = await verifyEmail(otp)
-    //  );
+    // send verifyEmail request to server
+    String? errorBuffer = await verifyEmail(otp, widget.emailAddress);
+    setState(() {
+      error = errorBuffer;
+      isIncorrectOTP = error != null;
+  });
 
     if (error != null) {
-      SnackBar snackBar = createSnackBar(message: error!);
+      SnackBar snackBar = createSnackBar(message: error);
 
+      if (!mounted) return;
+      
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       return;
     }
 
-
-    // receive response
-    setState(() => isIncorrectOTP = !(otp == 'qwerty')); // temporary
-
-    // update error message
-    setState(() => errorMessage = (isIncorrectOTP) ? 'Incorrect OTP.' : null);
+    // navigate to next page
   }
 
-  void handleResendEmail() {
-    debugPrint('Resend email');
-    // sendOtp(widget.emailAddress,); // uncomment when ready
+  void handleResendEmail() async {
+    // send sendOtp request to server
+    String? errorBuffer = await sendOtp(widget.emailAddress);
+    setState(() =>
+      error = errorBuffer
+     );
+
+    if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error);
+
+      if (!mounted) return;
+      
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
+
     startResendTimer();
   }
 
@@ -168,7 +179,6 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                         child: OtpInputField(
                           onChanged: (value) => setState(() => otp = value),
                           error: isIncorrectOTP,
-                          errorMessage: errorMessage,
                         ),
                       ),
                     ),

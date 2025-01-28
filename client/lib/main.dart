@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:client/pages/auth/welcome_page.dart';
+import 'package:travel_app/pages/auth/welcome_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await dotenv.load(fileName: '.env');
+  } catch (e) {
+    debugPrint('Error loading .env file: $e');
+  }
+
   runApp(const TravelApp());
 }
 

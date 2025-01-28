@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/gestures.dart';
 
-import 'package:client/config/colors.dart';
-import 'package:client/config/text_styles.dart';
+import 'package:travel_app/config/colors.dart';
+import 'package:travel_app/config/text_styles.dart';
 
-import 'package:client/pages/auth/login_page.dart';
+import 'package:travel_app/pages/auth/login_page.dart';
 
-import 'package:client/widgets/auth/reset_pass_form.dart';
-import 'package:client/widgets/generic/generator/create_snackbar.dart';
+import 'package:travel_app/widgets/auth/reset_pass_form.dart';
+import 'package:travel_app/widgets/generic/generator/create_snackbar.dart';
 
-import 'package:client/services/auth/reset_password.dart';
+import 'package:travel_app/services/auth/reset_password.dart';
 
 // Reset Password Page Widget
 class ResetPassPage extends StatefulWidget {
-  const ResetPassPage({super.key});
+  final String emailAddress;
+  
+  const ResetPassPage({
+    super.key,
+    required this.emailAddress,
+  });
 
   @override
   State<ResetPassPage> createState() => _ResetPassPageState();
@@ -21,7 +26,8 @@ class ResetPassPage extends StatefulWidget {
 
 class _ResetPassPageState extends State<ResetPassPage> {
   static const List<String> resetPassFormFields = [
-    'password',
+    'newPassword',
+    'confirmNewPassword',
   ];
 
   final Map<String, String> resetPassFormValues = <String, String>{
@@ -44,26 +50,34 @@ class _ResetPassPageState extends State<ResetPassPage> {
     precacheImage(bg!.image, context);
   }
 
-  void handleResetPasswordPage() {
-    debugPrint('$resetPassFormValues');
+  void handleResetPasswordPage() async {
+    Map<String, String> updatedUserDetails = {
+      'email': widget.emailAddress,
+      'newPassword': resetPassFormValues['newPassword'] ?? '',
+      'confirmNewPassword': resetPassFormValues['confirmNewPassword'] ?? '',
+    };
 
-    // uncomment when ready
-    // setState(() async =>
-    //   error = await resetPassword(resetPassFormValues['password']!)
-    // );
+    // send verifyEmail request to server
+    String? errorBuffer = await resetPassword(updatedUserDetails);
+    setState(() =>
+      error = errorBuffer
+     );
 
     if (error != null) {
-      SnackBar snackBar = createSnackBar(message: error!);
+      SnackBar snackBar = createSnackBar(message: error);
 
+      if (!mounted) return;
+      
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       return;
     }
 
+    if (!mounted) return;
 
     // redirect to login page
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => LoginPage()));
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
 
   @override

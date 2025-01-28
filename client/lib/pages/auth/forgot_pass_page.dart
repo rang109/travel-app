@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/gestures.dart';
 
-import 'package:client/config/colors.dart';
-import 'package:client/config/text_styles.dart';
+import 'package:travel_app/config/colors.dart';
+import 'package:travel_app/config/text_styles.dart';
 
-import 'package:client/pages/auth/reset_pass_verification_page.dart';
+import 'package:travel_app/pages/auth/reset_pass_verification_page.dart';
 
-import 'package:client/widgets/auth/forgot_pass_form.dart';
-import 'package:client/widgets/generic/generator/create_snackbar.dart';
+import 'package:travel_app/widgets/auth/forgot_pass_form.dart';
+import 'package:travel_app/widgets/generic/generator/create_snackbar.dart';
 
-import 'package:client/services/auth/send_otp.dart';
+import 'package:travel_app/services/auth/send_otp.dart';
 
 // ForgotPass Widget
 class ForgotPassPage extends StatefulWidget {
@@ -44,26 +44,29 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
     precacheImage(bg!.image, context);
   }
 
-  void handleSendCode() {
-    debugPrint('$forgotPassFormValue');
-
-    // uncomment when ready
-    // setState(() async =>
-    //   error = await sendOtp(forgotPassFormValue['email'] ?? '')
-    // ); 
+  void handleSendCode() async {
+    // send sendOtp request to server
+    String? errorBuffer = await sendOtp(forgotPassFormValue['email'] ?? '');
+    setState(() =>
+      error = errorBuffer
+     );
 
     if (error != null) {
-      SnackBar snackBar = createSnackBar(message: error!);
+      SnackBar snackBar = createSnackBar(message: error);
 
+      if (!mounted) return;
+      
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       return;
     }
 
-    // redirect to VerifyEmailPage
+    if (!mounted) return;
+
+    // redirect to ResetPassVerifyEmailPage
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => ResetPassVerifyEmailPage(
-              emailAddress: forgotPassFormValue['emailAddress'] ?? '',
+              emailAddress: forgotPassFormValue['email'] ?? '',
             )));
   }
 

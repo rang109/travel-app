@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:is_valid/is_valid.dart';
 
-import 'package:client/widgets/auth/auth_text_field.dart';
-import 'package:client/widgets/generic/box_button.dart';
+import 'package:travel_app/widgets/auth/auth_text_field.dart';
+import 'package:travel_app/widgets/generic/box_button.dart';
 
 class LoginForm extends StatefulWidget {
   final VoidCallback onSubmit;
   final List<String> formFields;
   final Map<String, String> formValues;
-  final Function(String key, String value) onFieldCahnged;
+  final Function(String key, String value) onFieldChanged;
 
   const LoginForm({
     super.key,
     required this.onSubmit,
     required this.formFields,
     required this.formValues,
-    required this.onFieldCahnged,
+    required this.onFieldChanged,
   });
 
   @override
@@ -72,7 +72,7 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(height: 12.0),
           AuthTextField(
             labelText: 'Enter Email Address',
-            onChanged: (value) => widget.onFieldCahnged('emailAddress', value),
+            onChanged: (value) => widget.onFieldChanged('email', value),
             validator: emailAddressValidator,
             keyboardType: TextInputType.emailAddress,
           ),
@@ -80,7 +80,7 @@ class _LoginFormState extends State<LoginForm> {
           AuthTextField(
             labelText: 'Enter Password',
             isProtected: true,
-            onChanged: (value) => widget.onFieldCahnged('password', value),
+            onChanged: (value) => widget.onFieldChanged('password', value),
             validator: passwordValidator,
             keyboardType: TextInputType.visiblePassword,
           ),

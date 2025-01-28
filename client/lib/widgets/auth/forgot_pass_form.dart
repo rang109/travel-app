@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:is_valid/is_valid.dart';
 
-import 'package:client/widgets/auth/auth_text_field.dart';
-import 'package:client/widgets/generic/box_button.dart';
+import 'package:travel_app/widgets/auth/auth_text_field.dart';
+import 'package:travel_app/widgets/generic/box_button.dart';
 
 class ForgotPassForm extends StatefulWidget {
   final VoidCallback onSubmit;

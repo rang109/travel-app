@@ -2,16 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:client/config/colors.dart';
-import 'package:client/config/text_styles.dart';
+import 'package:travel_app/config/colors.dart';
+import 'package:travel_app/config/text_styles.dart';
 
-import 'package:client/widgets/generic/box_button.dart';
-import 'package:client/widgets/auth/otp_input_field.dart';
-import 'package:client/widgets/generic/generator/create_snackbar.dart';
+import 'package:travel_app/widgets/generic/box_button.dart';
+import 'package:travel_app/widgets/auth/otp_input_field.dart';
+import 'package:travel_app/widgets/generic/generator/create_snackbar.dart';
 
-import 'package:client/pages/auth/reset_pass_page.dart';
+import 'package:travel_app/pages/auth/reset_pass_page.dart';
 
-import 'package:client/services/auth/send_otp.dart';
+import 'package:travel_app/services/auth/send_otp.dart';
+import 'package:travel_app/services/auth/verify_email.dart';
 
 // Reset Password - Verify Email Page Widget
 
@@ -31,7 +32,6 @@ class ResetPassVerifyEmailPage extends StatefulWidget {
 class _ResetPassVerifyEmailPageState extends State<ResetPassVerifyEmailPage> {
   String otp = '';
   bool isIncorrectOTP = false;
-  String? errorMessage;
 
   String? censoredEmail;
 
@@ -58,7 +58,7 @@ class _ResetPassVerifyEmailPageState extends State<ResetPassVerifyEmailPage> {
           widget.emailAddress.replaceRange(2, parsedEmail[0].length, '*' * 4);
     }
 
-    bg = Image.asset('assets/img/auth-bg-2.png');
+    bg = Image.asset('assets/img/auth-bg-1.png');
   }
 
   @override
@@ -73,39 +73,50 @@ class _ResetPassVerifyEmailPageState extends State<ResetPassVerifyEmailPage> {
     super.dispose();
   }
 
-  void handleVerifyEmail() {
+  void handleVerifyEmail() async {
     if (otp.length != 6) return;
 
-    // send otp to server
-    debugPrint('OTP: $otp');
-    // verifyEmail(otp); // uncomment if ready
-
-    // receive response
-    setState(() => isIncorrectOTP = !(otp == 'qwerty')); // temporary
-
-    // update error message
-    setState(() => errorMessage = (isIncorrectOTP) ? 'Incorrect OTP.' : null);
-
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const ResetPassPage()));
-  }
-
-  void handleResendEmail() {
-    debugPrint('Resend email');
-
-    // uncomment when ready
-    // setState(() async =>
-    //   error = await sendOtp(widget.emailAddress)
-    // );
+    // send verifyEmail request to server
+    String? errorBuffer = await verifyEmail(otp, widget.emailAddress);
+    setState(() {
+      error = errorBuffer;
+      isIncorrectOTP = error != null;
+    });
 
     if (error != null) {
-      SnackBar snackBar = createSnackBar(message: error!);
+      SnackBar snackBar = createSnackBar(message: error);
 
+      if (!mounted) return;
+      
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       return;
     }
 
+    if (!mounted) return;
+
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => ResetPassPage(
+          emailAddress: widget.emailAddress,
+        )));
+  }
+
+  void handleResendEmail() async {
+    // send sendOtp request to server
+    String? errorBuffer = await sendOtp(widget.emailAddress);
+    setState(() =>
+      error = errorBuffer
+     );
+
+    if (error != null) {
+      SnackBar snackBar = createSnackBar(message: error);
+
+      if (!mounted) return;
+      
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    }
 
     startResendTimer();
   }
@@ -176,7 +187,6 @@ class _ResetPassVerifyEmailPageState extends State<ResetPassVerifyEmailPage> {
                         child: OtpInputField(
                           onChanged: (value) => setState(() => otp = value),
                           error: isIncorrectOTP,
-                          errorMessage: errorMessage,
                         ),
                       ),
                     ),

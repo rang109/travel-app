@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:client/config/colors.dart';
-import 'package:client/config/text_styles.dart';
+import 'package:travel_app/config/colors.dart';
+import 'package:travel_app/config/text_styles.dart';
 
 // AUTH TEXT FIELD WIDGET
 class AuthTextField extends StatefulWidget {

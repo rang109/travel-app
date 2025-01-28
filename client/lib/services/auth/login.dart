@@ -1,30 +1,40 @@
 import 'dart:convert';
-import 'package:dotenv/dotenv.dart';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-// temp
+import 'package:travel_app/services/constants/server_uri.dart';
+import 'package:travel_app/services/response_data.dart';
+import 'package:travel_app/services/get_csrf_token.dart';
+
 Future<String?> login(Map<String, String> userDetails) async {
-  DotEnv env = DotEnv(includePlatformEnvironment: true)
-    ..load();
-  
-  final response = await http.post(
-    Uri.parse('${env['CONNECTION_SCHEME']}${env['CONNECTION_IP']}:${env['CONNECTION_PORT']}/login/'), // api endpoint for signup
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'email': userDetails['email'] ?? '',
-      'password': userDetails['password'] ?? '',
-    }),
-  );
+  try {
+    // get csrf token
+    final ResponseData tokenResponse = await getCsrfToken();
 
-  debugPrint(response.body);
+    if (!tokenResponse.success) {
+      return tokenResponse.message;
+    }
 
-  if (response.statusCode >= 400) {
-    return jsonDecode(response.body)['message'];
+    String csrfToken = tokenResponse.data!['csrfToken'];
+    
+    final response = await http.post(
+      Uri.parse('$serverUri/login/'), // api endpoint for login
+      headers: {
+        'Cookie': 'csrftoken=$csrfToken',
+        'X-CSRFToken': csrfToken,
+      },
+      body: jsonEncode({
+        'email': userDetails['email'] ?? '',
+        'password': userDetails['password'] ?? '',
+      }),
+    );
+
+    if (response.statusCode >= 400) {
+      return jsonDecode(response.body)['message'];
+    }
+
+    return null;
+  } catch (e) {
+    return e.toString();
   }
-
-  return null;
 }

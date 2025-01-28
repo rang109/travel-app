@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:is_valid/is_valid.dart';
 
-import 'package:client/widgets/auth/auth_text_field.dart';
-import 'package:client/widgets/generic/box_button.dart';
+import 'package:travel_app/widgets/auth/auth_text_field.dart';
+import 'package:travel_app/widgets/generic/box_button.dart';
 
 class SignupForm extends StatefulWidget {
   final VoidCallback onSubmit;
@@ -103,7 +103,7 @@ class _SignupFormState extends State<SignupForm> {
             labelText: 'Enter Email Address',
             onChanged: (value) => 
               widget.onFieldChanged('email', value),
-            // validator: emailAddressValidator,
+            validator: emailAddressValidator,
             keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: 12.0),
@@ -118,7 +118,7 @@ class _SignupFormState extends State<SignupForm> {
             isProtected: true,
             onChanged: (value) => 
               widget.onFieldChanged('password', value),
-            // validator: passwordValidator,
+            validator: passwordValidator,
             keyboardType: TextInputType.visiblePassword,
           ),
           SizedBox(height: 12.0),
@@ -127,7 +127,7 @@ class _SignupFormState extends State<SignupForm> {
             isProtected: true,
             onChanged: (value) => 
               widget.onFieldChanged('confirmPassword', value),
-            // validator: confirmPasswordValidator,
+            validator: confirmPasswordValidator,
             keyboardType: TextInputType.visiblePassword
           ),
           // SUBMIT BUTTON
@@ -137,11 +137,11 @@ class _SignupFormState extends State<SignupForm> {
             child: BoxButton(
               onPressed: handleSubmit,
               buttonLabel: 'Signup',
-              // disabled: (
-              //   widget.formFields.any(
-              //     (key) => widget.formValues[key] == ''
-              //   )
-              // ),
+              disabled: (
+                widget.formFields.any(
+                  (key) => widget.formValues[key] == ''
+                )
+              ),
             ),
           ),
         ],

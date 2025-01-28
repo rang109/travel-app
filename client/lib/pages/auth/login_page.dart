@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
-import 'package:client/config/colors.dart';
-import 'package:client/config/text_styles.dart';
+import 'package:travel_app/config/colors.dart';
+import 'package:travel_app/config/text_styles.dart';
 
-import 'package:client/pages/home_page.dart';
-import 'package:client/pages/auth/forgot_pass_page.dart';
+import 'package:travel_app/pages/home_page.dart';
+import 'package:travel_app/pages/auth/forgot_pass_page.dart';
 
-import 'package:client/widgets/auth/login_form.dart';
-import 'package:client/widgets/generic/generator/create_snackbar.dart';
+import 'package:travel_app/widgets/auth/login_form.dart';
+import 'package:travel_app/widgets/generic/generator/create_snackbar.dart';
 
-import 'package:client/services/auth/login.dart';
+import 'package:travel_app/services/auth/login.dart';
 
 // Login Page Widget
 class LoginPage extends StatefulWidget {
@@ -22,7 +22,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   static const List<String> loginFormFields = [
-    'emailAddress',
+    'email',
     'password',
   ];
 
@@ -46,22 +46,24 @@ class _LoginPageState extends State<LoginPage> {
     precacheImage(bg!.image, context);
   }
 
-  void handleLogin() {
-    debugPrint('$loginFormValues');
-
-    // uncomment when ready
-    // setState(() async => 
-    //  error = login(loginFormValues)
-    //);
+  void handleLogin() async {
+    // send login request to server
+    String? errorBuffer = await login(loginFormValues);
+    setState(() =>
+      error = errorBuffer
+     );
 
     if (error != null) {
-      SnackBar snackBar = createSnackBar(message: error!);
+      SnackBar snackBar = createSnackBar(message: error);
 
+      if (!mounted) return;
+      
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       return;
     }
 
+    if (!mounted) return;
 
     // redirect to home page/dashboard
     Navigator.of(context)
@@ -95,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                     onSubmit: handleLogin,
                     formFields: loginFormFields,
                     formValues: loginFormValues,
-                    onFieldCahnged: (key, value) =>
+                    onFieldChanged: (key, value) =>
                         setState(() => loginFormValues[key] = value),
                   ),
                   SizedBox(height: 10.0),

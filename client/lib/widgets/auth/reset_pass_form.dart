@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:is_valid/is_valid.dart';
 
-import 'package:client/widgets/auth/auth_text_field.dart';
-import 'package:client/widgets/generic/box_button.dart';
+import 'package:travel_app/widgets/auth/auth_text_field.dart';
+import 'package:travel_app/widgets/generic/box_button.dart';
 
 class ResetPassFrom extends StatefulWidget {
   final VoidCallback onSubmit;
@@ -53,7 +53,7 @@ class _ResetPassFormState extends State<ResetPassFrom> {
   }
 
   String? confirmPasswordValidator(String? confirmPassword) {
-    if (confirmPassword != widget.formValues['password']) {
+    if (confirmPassword != widget.formValues['newPassword']) {
       return 'Passwords does not match.';
     }
 
@@ -77,7 +77,7 @@ class _ResetPassFormState extends State<ResetPassFrom> {
           AuthTextField(
             labelText: 'Enter New Password',
             isProtected: true,
-            onChanged: (value) => widget.onFieldChanged('password', value),
+            onChanged: (value) => widget.onFieldChanged('newPassword', value),
             validator: passwordValidator,
             keyboardType: TextInputType.visiblePassword,
           ),
@@ -85,6 +85,7 @@ class _ResetPassFormState extends State<ResetPassFrom> {
           AuthTextField(
             labelText: 'Confirm New Password',
             isProtected: true,
+            onChanged: (value) => widget.onFieldChanged('confirmNewPassword', value),
             validator: confirmPasswordValidator,
             keyboardType: TextInputType.visiblePassword,
           ),
