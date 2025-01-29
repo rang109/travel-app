@@ -66,18 +66,22 @@ from datetime import timedelta
 from django.utils.timezone import now
 
 class OtpToken(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="otps")
-    otp_code = models.CharField(max_length=6, default=secrets.token_hex(3))
+    user = models.OneToOneField(  # Change from ForeignKey to OneToOneField
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="otp"
+    )
+    otp_code = models.CharField(max_length=6, blank=True)
     otp_created_at = models.DateTimeField(auto_now_add=True)
     otp_expires_at = models.DateTimeField(blank=True, null=True)
-    
+
     def save(self, *args, **kwargs):
-        # Only generate OTP for non-superusers if expiration is not set
-        if not self.user.is_superuser and not self.otp_expires_at:
-            self.otp_expires_at = now() + timedelta(minutes=10)  # Example expiry time
+        if not self.otp_code:  # Generate OTP only if not set
+            self.otp_code = secrets.token_hex(3).upper()
+        if not self.otp_expires_at:
+            self.otp_expires_at = now() + timedelta(minutes=10)
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} - {self.otp_code}"
+
 
     

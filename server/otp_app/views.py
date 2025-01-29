@@ -1,5 +1,6 @@
 import json
 import re
+import secrets
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .models import OtpToken
@@ -167,7 +168,7 @@ def verify_email(request, email):
 def send_otp(request):
     if request.method == 'POST':
         try:
-            post_data_dict = json.loads(request.body)  # Parse JSON body
+            post_data_dict = json.loads(request.body)
             user_email = post_data_dict.get("otp_email")
 
             if not user_email:
@@ -181,15 +182,20 @@ def send_otp(request):
                 'message': "Invalid JSON format."
             }, status=400)
 
-        if get_user_model().objects.filter(email=user_email).exists():
-            user = get_user_model().objects.get(email=user_email)
-            otp = OtpToken.objects.create(user=user, otp_expires_at=timezone.now() + timezone.timedelta(minutes=5))
+        User = get_user_model()
+        if User.objects.filter(email=user_email).exists():
+            user = User.objects.get(email=user_email)
+            otp_code = secrets.token_hex(3).upper()  # Generate a new OTP
+
+            otp, created = OtpToken.objects.update_or_create(
+                user=user, defaults={'otp_code': otp_code, 'otp_expires_at': timezone.now() + timezone.timedelta(minutes=5)}
+            )
 
             # Email variables
             subject = "Email Verification"
             message = f"""
-                Hi {user.username}, here is your OTP {otp.otp_code}
-                it expires in 5 minutes. Use the URL below to redirect back to the website:
+                Hi {user.username}, here is your OTP: {otp.otp_code}
+                It expires in 5 minutes. Use the URL below to verify your email:
                 http://127.0.0.1:8000/verify-email/{user.username}
             """
             sender = config('EMAIL_HOST_USER')
