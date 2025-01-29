@@ -152,12 +152,12 @@ def verify_email(request, email):
                 return JsonResponse({
                     'success': False,
                     'message': "The OTP has expired. Get a new OTP."
-                })
+                }, status=400)
         else:
             return JsonResponse({
                 'success': False,
                 'message': "Invalid OTP entered. Please try again."
-            })
+            }, status=400)
 
     return JsonResponse({
         'success': False,
