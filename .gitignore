@@ -20,6 +20,8 @@ server/debug.log
 
 ## Flutter Generated
 
+client/.env
+
 # Miscellaneous
 client/*.class
 client/*.lock
